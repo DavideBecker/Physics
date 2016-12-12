@@ -2,6 +2,25 @@ var STICKY_THRESHOLD = 0.001;
 var GRAVITY_X = 0.5;
 var GRAVITY_Y = 0.5;
 
+var keys = {
+    W: 87,
+    A: 65,
+    S: 83,
+    D: 68,
+
+    SPACE: 32,
+    ENTER: 13,
+    ESCAPE: 27,
+    SHIFT: 16,
+    CTRL: 17,
+    ALT: 18,
+
+    UP: 38,
+    DOWN: 40,
+    LEFT: 37,
+    RIGHT: 39
+}
+
 
 function elasticResolve(Entitiy1, Entitiy2) {
     var pMidX = Entitiy1.getMidX();
@@ -60,7 +79,7 @@ function elasticResolve(Entitiy1, Entitiy2) {
 
 var Engine = function () {
     var engine = this;
-    
+
     engine.showPhysics = false;
     engine.entities = [];
 
@@ -68,9 +87,9 @@ var Engine = function () {
         detectCollisions: function () {
             for (var i in engine.entities) {
                 var c = engine.entities[i]
-                var ce = c.Entity;
+                var ce = c;
                 for (var ii in engine.entities) {
-                    var e = engine.entities[ii].Entity;
+                    var e = engine.entities[ii];
                     if (c.isCollidingWith(e) && ce.id !== e.id) {
                         if (ce.restitution === e.restitution) {
                             elasticResolve(ce, e);
@@ -91,7 +110,7 @@ var Engine = function () {
             var entity;
             var entities = engine.entities;
             for (var index in entities) {
-                entity = entities[index].Entity;
+                entity = entities[index];
                 entity.vx = lerp(entity.vx, 0, 0.1);
                 entity.vx += entity.ax * elapsed + entity.gx;
                 entity.vy += entity.ay * elapsed + entity.gy;

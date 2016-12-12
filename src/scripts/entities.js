@@ -1,5 +1,3 @@
-
-
 var PhysicsEntity = function (x, y, w, h) {
     this.x = x || 0;
     this.y = y || 0;
@@ -34,39 +32,39 @@ var PhysicsEntity = function (x, y, w, h) {
 
 
 var Box = function (x, y, w, h) {
-    this.Entity = new PhysicsEntity();
+    PhysicsEntity.apply(this, arguments);
 
     this.setX = function (x) {
-        this.Entity.x = x || 0;
+        this.x = x || 0;
     };
 
     this.setY = function (x) {
-        this.Entity.y = y || 0;
+        this.y = y || 0;
     };
 
     this.setWidth = function (w) {
-        this.Entity.width = w || 0;
+        this.width = w || 0;
     };
 
     this.setHeight = function (h) {
-        this.Entity.height = h || 0;
+        this.height = h || 0;
     };
 
     this.setX(x);
     this.setY(y);
     this.setWidth(w);
     this.setHeight(h);
-    this.Entity.updateHitbox();
+    this.updateHitbox();
 
     this.render = function (rx, ry) {
-        rx = this.Entity.x;
-        ry = this.Entity.y;
+        rx = this.x;
+        ry = this.y;
         fill(255, 0, 0);
-        rect(rx, ry, this.Entity.width, this.Entity.height);
+        rect(rx, ry, this.width, this.height);
     };
 
     this.isCollidingWith = function (Entity) {
-        var te = this.Entity;
+        var te = this;
 
         var t1 = te.getTop();
         var l1 = te.getLeft();
@@ -84,11 +82,11 @@ var Box = function (x, y, w, h) {
     };
 
     this.showPhysics = function () {
-        fill(50 + 200 * this.Entity.restitution, 50 + 200 * this.Entity.restitution, 0);
-        rect(this.Entity.x, this.Entity.y, this.Entity.width, this.Entity.height);
+        fill(50 + 200 * this.restitution, 50 + 200 * this.restitution, 0);
+        rect(this.x, this.y, this.width, this.height);
         stroke(70, 255, 33);
         strokeWeight(3);
-        line(this.Entity.getMidX(), this.Entity.getMidY(), this.Entity.getMidX() + this.Entity.vx * 3, this.Entity.getMidY() + this.Entity.vy * 3);
+        line(this.getMidX(), this.getMidY(), this.getMidX() + this.vx * 3, this.getMidY() + this.vy * 3);
         noStroke();
     };
 
@@ -96,6 +94,6 @@ var Box = function (x, y, w, h) {
         game.entities.splice(this.id, 1);
     };
 
-    this.Entity.id = game.entities.length;
-    game.entities[this.Entity.id] = this;
+    this.id = game.entities.length;
+    game.entities[this.id] = this;
 };

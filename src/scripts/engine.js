@@ -23,6 +23,8 @@ var keys = {
 
 
 function elasticResolve(Entitiy1, Entitiy2) {
+    // TODO: Rewrite the whole resolve function to be more accurate
+    // --> https://en.wikipedia.org/wiki/Elastic_collision
     var pMidX = Entitiy1.getMidX();
     var pMidY = Entitiy1.getMidY();
     var aMidX = Entitiy2.getMidX();
@@ -77,14 +79,17 @@ function elasticResolve(Entitiy1, Entitiy2) {
 };
 
 
-var Engine = function () {
+var Engine = function() {
     var engine = this;
 
     engine.showPhysics = false;
     engine.entities = [];
 
     engine.collider = {
-        detectCollisions: function () {
+        // TODO: Implement something like spatial hashing to improve performance
+        // Right now this function checks every entity with every entity,
+        // making it redundant and not well optimized
+        detectCollisions: function() {
             for (var i in engine.entities) {
                 var c = engine.entities[i]
                 var ce = c;
@@ -106,12 +111,13 @@ var Engine = function () {
     };
 
     engine.positions = {
-        update: function (elapsed) {
+        update: function(elapsed) {
             var entity;
             var entities = engine.entities;
             for (var index in entities) {
                 entity = entities[index];
-                entity.vx = lerp(entity.vx, 0, 0.1);
+                // TODO: Position calculation still feels a bit off
+                entity.vx = lerp(entity.vx, 0, entity.gx);
                 entity.vx += entity.ax * elapsed + entity.gx;
                 entity.vy += entity.ay * elapsed + entity.gy;
                 entity.x += entity.vx * elapsed;
@@ -121,7 +127,7 @@ var Engine = function () {
     };
 
     engine.render = {
-        all: function () {
+        all: function() {
             for (var index in engine.entities) {
                 var e = engine.entities[index];
                 e.render();

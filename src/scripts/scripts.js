@@ -7,6 +7,11 @@ var keysDown = {};
 var b1 = new Box(50, 100, 50, 50);
 var b2 = new Box(250, 100, 50, 50);
 
+var times = {
+    prev: new Date().getTime(),
+    curr: null
+};
+
 game.showPhysics = true;
 
 b1.gy = 0;
@@ -28,29 +33,34 @@ function keyReleased() {
 };
 
 function draw() {
-
     if (keysDown[keys.SPACE]) {
-        b1.vy = -12;
+        b1.vx = 0;
+        b1.vy = 0;
+        b1.ax = 0;
+        b1.ay = 0;
     }
 
     if (keysDown[keys.D]) {
-        b1.vx = 3;
+        b1.ax += 0.001;
     }
 
     if (keysDown[keys.A]) {
-        b1.vx = -3;
+        b1.ax += -0.001;
     }
 
     if (keysDown[keys.S]) {
-        b1.vy = 3;
+        b1.ay += 0.001;
     }
 
     if (keysDown[keys.W]) {
-        b1.vy = -3;
+        b1.ay += -0.001;
     }
 
     background(255);
-    game.positions.update(1);
+    times.curr = new Date().getTime();
+    var diff = times.curr - times.prev;
+    game.positions.update(diff / 20);
+    times.prev = times.curr;
     game.collider.detectCollisions();
     game.render.all();
 };

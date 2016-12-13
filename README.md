@@ -1,7 +1,7 @@
 # Setting up the project
 Make sure [Node](https://nodejs.org/en/) with `npm` is installed and your CLI is pointed to this projects folder.
 
-If you don't already have gulp installed globally you need to run `npm install gulp -g`. This is required to run gulp commands from CLI.
+If you don't already have gulp installed globally you need to run `npm install gulp-cli -g`. This is required to run gulp commands from CLI.
 
 Install the required Node modules by running `npm install`. This might take a while.
 

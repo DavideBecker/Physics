@@ -66,11 +66,15 @@ var Box = function(x, y, w, h) {
     };
 
     this.showPhysics = function() {
-        fill(50 + 200 * this.restitution, 50 + 200 * this.restitution, 0);
+        fill('#333');
         rect(this.x, this.y, this.width, this.height);
         stroke(70, 255, 33);
-        strokeWeight(3);
-        line(this.getMidX(), this.getMidY(), this.getMidX() + this.vx * 3, this.getMidY() + this.vy * 3);
+        strokeWeight(2);
+        line(this.getMidX(), this.getMidY(), this.getMidX() + this.vx * 5, this.getMidY() + this.vy * 5);
+        stroke('#00A0E2');
+        line(this.getMidX(), this.getMidY(), this.getMidX() + this.ax * 25, this.getMidY() + this.ay * 25);
+        stroke('#D42322');
+        line(this.getMidX(), this.getMidY(), this.getMidX() + (this.vx - this.ax) * 5, this.getMidY() + (this.vy - this.ay) * 5);
         noStroke();
         fill('#444');
         text(

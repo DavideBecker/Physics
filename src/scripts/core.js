@@ -65,6 +65,7 @@ var Core = function() {
     core.showPhysics = false;
     core.entities = [];
     core.animations = [];
+    core.keysPressed = {};
 
     core.collider = {
         // TODO: Implement something like spatial hashing to improve performance

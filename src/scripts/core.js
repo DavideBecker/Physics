@@ -64,6 +64,7 @@ var Core = function() {
 
     core.showPhysics = false;
     core.entities = [];
+    core.animations = [];
 
     core.collider = {
         // TODO: Implement something like spatial hashing to improve performance
@@ -115,8 +116,15 @@ var Core = function() {
                     e.showPhysics();
                 }
             }
+        },
+        animations: function() {
+            for (var index in core.animations) {
+                core.animations[index].animate();
+            }
+        },
         all: function() {
             core.render.entities();
+            core.render.animations();
         }
     };
 };

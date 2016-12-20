@@ -1,30 +1,10 @@
-var STICKY_THRESHOLD = 0.001;
-var GRAVITY_X = 0.5;
-var GRAVITY_Y = 0.5;
-
-var keys = {
-    W: 87,
-    A: 65,
-    S: 83,
-    D: 68,
-
-    SPACE: 32,
-    ENTER: 13,
-    ESCAPE: 27,
-    SHIFT: 16,
-    CTRL: 17,
-    ALT: 18,
-
-    UP: 38,
-    DOWN: 40,
-    LEFT: 37,
-    RIGHT: 39
-}
-
+require('config');
 
 function elasticResolve(Entitiy1, Entitiy2) {
     // TODO: Rewrite the whole resolve function to be more accurate
     // --> https://en.wikipedia.org/wiki/Elastic_collision
+    //
+
     var pMidX = Entitiy1.getMidX();
     var pMidY = Entitiy1.getMidY();
     var aMidX = Entitiy2.getMidX();
@@ -46,12 +26,12 @@ function elasticResolve(Entitiy1, Entitiy2) {
         }
         if (Math.random() < 0.5) {
             Entitiy1.vx = -Entitiy1.vx * Entitiy2.restitution;
-            if (abs(Entitiy1.vx) < STICKY_THRESHOLD) {
+            if (abs(Entitiy1.vx) < config.STICKY_THRESHOLD) {
                 Entitiy1.vx = 0;
             }
         } else {
             Entitiy1.vy = -Entitiy1.vy * Entitiy2.restitution;
-            if (abs(Entitiy1.vy) < STICKY_THRESHOLD) {
+            if (abs(Entitiy1.vy) < config.STICKY_THRESHOLD) {
                 Entitiy1.vy = 0;
             }
         }
@@ -62,7 +42,7 @@ function elasticResolve(Entitiy1, Entitiy2) {
             Entitiy1.x = Entitiy2.getLeft() - Entitiy1.width;
         }
         Entitiy1.vx = -Entitiy1.vx * Entitiy2.restitution;
-        if (abs(Entitiy1.vx) < STICKY_THRESHOLD) {
+        if (abs(Entitiy1.vx) < config.STICKY_THRESHOLD) {
             Entitiy1.vx = 0;
         }
     } else {
@@ -72,29 +52,31 @@ function elasticResolve(Entitiy1, Entitiy2) {
             Entitiy1.y = Entitiy2.getTop() - Entitiy1.height;
         }
         Entitiy1.vy = -Entitiy1.vy * Entitiy2.restitution;
-        if (abs(Entitiy1.vy) < STICKY_THRESHOLD) {
+        if (abs(Entitiy1.vy) < config.STICKY_THRESHOLD) {
             Entitiy1.vy = 0;
         }
     }
 };
 
 
-var Engine = function() {
-    var engine = this;
+var Core = function() {
+    var core = this;
 
-    engine.showPhysics = false;
-    engine.entities = [];
+    core.showPhysics = false;
+    core.entities = [];
+    core.animations = [];
+    core.keysPressed = {};
 
-    engine.collider = {
+    core.collider = {
         // TODO: Implement something like spatial hashing to improve performance
         // Right now this function checks every entity with every entity,
         // making it redundant and not well optimized
         detectCollisions: function() {
-            for (var i in engine.entities) {
-                var c = engine.entities[i]
+            for (var i in core.entities) {
+                var c = core.entities[i]
                 var ce = c;
-                for (var ii in engine.entities) {
-                    var e = engine.entities[ii];
+                for (var ii in core.entities) {
+                    var e = core.entities[ii];
                     if (c.isCollidingWith(e) && ce.id !== e.id) {
                         if (ce.restitution === e.restitution) {
                             elasticResolve(ce, e);
@@ -110,10 +92,10 @@ var Engine = function() {
         }
     };
 
-    engine.positions = {
+    core.positions = {
         update: function(elapsed) {
             var entity;
-            var entities = engine.entities;
+            var entities = core.entities;
             for (var index in entities) {
                 entity = entities[index];
                 // TODO: Position calculation still feels a bit off
@@ -126,17 +108,26 @@ var Engine = function() {
         }
     };
 
-    engine.render = {
-        all: function() {
-            for (var index in engine.entities) {
-                var e = engine.entities[index];
+    core.render = {
+        entities: function() {
+            for (var index in core.entities) {
+                var e = core.entities[index];
                 e.render();
-                if (engine.showPhysics) {
+                if (core.showPhysics) {
                     e.showPhysics();
                 }
             }
+        },
+        animations: function() {
+            for (var index in core.animations) {
+                core.animations[index].animate();
+            }
+        },
+        all: function() {
+            core.render.entities();
+            core.render.animations();
         }
     };
 };
 
-var game = new Engine();
+var game = new Core();

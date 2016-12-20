@@ -86,4 +86,4 @@ gulp.task('clean', function() {
     del(baseUrl + distUrl);
 })
 
-gulp.task('default', ['clean', 'styles', 'scripts', 'images', 'sprites'])
+gulp.task('default', ['clean', 'styles', 'scripts', 'images'])

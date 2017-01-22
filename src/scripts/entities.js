@@ -93,6 +93,6 @@ var Box = function(x, y, w, h) {
         game.entities.splice(this.id, 1);
     };
 
-    this.id = game.entities.length;
+    this.id = guid();
     game.entities[this.id] = this;
 };

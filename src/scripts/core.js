@@ -77,6 +77,8 @@ var Core = function() {
         } else
             core.generateEntityId(E);
     };
+
+    core.resolver = new Resolver();
     core.collider = new Collider();
 
     // TODO: Implement something like spatial hashing to improve performance
@@ -92,8 +94,10 @@ var Core = function() {
             for (var ii in core.entities) {
                 var e2 = core.entities[ii];
 
-                if(core.collider.isColliding(e1, e2))
-                    console.log(e1, ' and ', e2, ' are colliding.');
+                if(core.collider.isColliding(e1, e2)) {
+                    core.resolver.resolve(e1, e2);
+                    //console.log(e1, ' and ', e2, ' are colliding.');
+                }
 
                 // if (c.isCollidingWith(e) && ce.id !== e.id) {
                 //     if (ce.restitution === e.restitution) {

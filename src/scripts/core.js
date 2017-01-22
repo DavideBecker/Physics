@@ -1,6 +1,7 @@
 require('config');
 require('shapes');
 require('collisions');
+require('resolver');
 
 function elasticResolve(Entitiy1, Entitiy2) {
     // TODO: Rewrite the whole resolve function to be more accurate
@@ -89,10 +90,17 @@ var Core = function() {
     // through the first for loop, or else every element gets checked twice,
     // once at first position and once in 2nd. Super redundant!
     core.detectCollisions = function() {
+        var traversed = {};
+
         for (var i in core.entities) {
             var e1 = core.entities[i];
+            traversed[e1.id] = true;
+
             for (var ii in core.entities) {
                 var e2 = core.entities[ii];
+
+                if(traversed[e2.id])
+                    continue;
 
                 if(core.collider.isColliding(e1, e2)) {
                     core.resolver.resolve(e1, e2);

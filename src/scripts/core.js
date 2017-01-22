@@ -65,10 +65,18 @@ var Core = function() {
     var core = this;
 
     core.showPhysics = false;
-    core.entities = [];
+    core.entities = {};
     core.animations = [];
     core.keysPressed = {};
 
+    core.generateEntityId = function(E) {
+        var newId = guid();
+        if(!game.entities[newId]) {
+            E.id = guid();
+            game.entities[newId] = E;
+        } else
+            core.generateEntityId(E);
+    };
     core.collider = new Collider();
 
     // TODO: Implement something like spatial hashing to improve performance

@@ -30,9 +30,10 @@ var anim = new Animation(function(step) {
     // Note that this isn't a phyics entity, so it won't interact with them
     // Although it could
     rect(100 * step, 100 * step, 100, 100);
-});
+}, 2000);
 // When we're ready to run it we can set isRunning to true and it will animate
 anim.isRunning = true;
+anim.isLooping = true;
 
 // This bit is used for the delta time to handle frame skips and slowdowns
 var times = {

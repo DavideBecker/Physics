@@ -8,18 +8,17 @@ require('engine');
 
 // We can easily create new physic entities, that interact with each other
 var b1 = new Box(50, 100, 50, 50);
-var ground = new Box();
+var b2 = new Box(100, 200, 500, 50);
+var b3 = new Box(300, 300, 50, 50);
 
 // We can change the velocity, acceleration etc anywhere we want to.
 // Either at the start to give them some initial momentum or on demand.
 // Another example below changes the velocity of an entity when keys are pressed.
-b1.gy = 1;
-b1.ax = 1;
-ground.x = 0;
-ground.height = 50;
-ground.gy = 0;
+b1.gy = 0;
+b2.gy = 0;
+b3.gy = 0;
 
-// This is shows us some graphs and stuff to visualize momentum and collisions
+// This shows us some graphs and stuff to visualize momentum and collisions
 game.showPhysics = true;
 
 // We can also animate stuff pretty easily. First we define how our animation
@@ -45,8 +44,6 @@ var times = {
 function setup() {
     frameRate(config.FPS);
     createCanvas(windowWidth - 10, windowHeight - 10);
-    ground.y = windowHeight - 50;
-    ground.width = windowWidth;
 }
 
 // This, along with the keyReleased() function allows us to have a super
@@ -60,6 +57,9 @@ function keyReleased() {
 };
 
 function draw() {
+    b1.vx = 0;
+    b1.vy = 0;
+
     // This bit allows to control one of the rectangles by changing its velocity
     // when W, A, S or D is pressed or stopping its momentum by pressing space
     if (game.keysPressed[keys.SPACE]) {

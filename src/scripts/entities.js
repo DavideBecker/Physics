@@ -21,9 +21,12 @@ var PhysicsEntity = function (x, y, w, h) {
     this.getMidX = function() { return this.x + this.halfWidth; };
     this.getMidY = function() { return this.y + this.halfHeight; };
 
+    this.getCenterX = function() { return this.width / 2 };
+    this.getCenterY = function() { return this.height / 2 };
+
     this.updateHitbox = function() {
-        this.halfWidth = this.width / 2;
-        this.halfHeight = this.height / 2;
+        this.halfWidth = this.getCenterX();
+        this.halfHeight = this.getCenterY();
     };
 
     // TODO: Simple function to approach specified coordinates

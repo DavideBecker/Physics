@@ -34,12 +34,10 @@ var PhysicsEntity = function (x, y, w, h) {
     this.updateHitbox();
 };
 
-
-
-var Box = function(x, y, w, h) {
+var GameEntity = function(x, y, w, h, t) {
     PhysicsEntity.apply(this, arguments);
 
-    var type = types.box;
+    var type = t;
 
     this.getType = function() {
         return type;
@@ -53,13 +51,16 @@ var Box = function(x, y, w, h) {
         return true;
     }
 
-    // TODO: The way the entities are stored they will get overwritten if
-    // a new entity is created after another is destroyed
-    // Rewrite this, but keep some way to give every entity a unique ID
     this.destroy = function() {
         game.entities.splice(this.id, 1);
     };
 
     this.id = guid();
     game.entities[this.id] = this;
+};
+
+var Box = function(x, y, w, h) {
+    var type = types.box;
+
+    GameEntity.apply(this, [x, y, w, h, type]);
 };

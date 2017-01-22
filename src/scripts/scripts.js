@@ -1,7 +1,4 @@
-require('core');
-require('entities');
-require('animations');
-//require('materials');
+require('engine');
 
 // Some of the essential engine components were copied from
 // https://www.ibm.com/developerworks/library/wa-build2dphysicsengine/

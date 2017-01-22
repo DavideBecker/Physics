@@ -1,5 +1,6 @@
 require('config');
 require('shapes');
+require('collisions');
 
 function elasticResolve(Entitiy1, Entitiy2) {
     // TODO: Rewrite the whole resolve function to be more accurate
@@ -68,27 +69,34 @@ var Core = function() {
     core.animations = [];
     core.keysPressed = {};
 
-    core.collider = {
-        // TODO: Implement something like spatial hashing to improve performance
-        // Right now this function checks every entity with every entity,
-        // making it redundant and not well optimized
-        detectCollisions: function() {
-            for (var i in core.entities) {
-                var c = core.entities[i]
-                var ce = c;
-                for (var ii in core.entities) {
-                    var e = core.entities[ii];
-                    if (c.isCollidingWith(e) && ce.id !== e.id) {
-                        if (ce.restitution === e.restitution) {
-                            elasticResolve(ce, e);
-                        }
-                        if (ce.restitution > e.restitution) {
-                            elasticResolve(ce, e);
-                        } else if (ce.restitution < e.restitution) {
-                            elasticResolve(e, ce);
-                        }
-                    }
-                }
+    core.collider = new Collider();
+
+    // TODO: Implement something like spatial hashing to improve performance
+    // Right now this function checks every entity with every entity,
+    // making it redundant and not well optimized
+    //
+    // TODO: Don't check for entities in the 2nd for loop that already went
+    // through the first for loop, or else every element gets checked twice,
+    // once at first position and once in 2nd. Super redundant!
+    core.detectCollisions = function() {
+        for (var i in core.entities) {
+            var e1 = core.entities[i];
+            for (var ii in core.entities) {
+                var e2 = core.entities[ii];
+
+                if(core.collider.isColliding(e1, e2))
+                    console.log(e1, ' and ', e2, ' are colliding.');
+
+                // if (c.isCollidingWith(e) && ce.id !== e.id) {
+                //     if (ce.restitution === e.restitution) {
+                //         elasticResolve(ce, e);
+                //     }
+                //     if (ce.restitution > e.restitution) {
+                //         elasticResolve(ce, e);
+                //     } else if (ce.restitution < e.restitution) {
+                //         elasticResolve(e, ce);
+                //     }
+                // }
             }
         }
     };

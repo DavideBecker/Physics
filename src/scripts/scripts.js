@@ -93,6 +93,6 @@ function draw() {
     var diff = times.curr - times.prev;
     game.positions.update(diff / 20);
     times.prev = times.curr;
-    game.collider.detectCollisions();
+    game.detectCollisions();
     game.render.all();
 };

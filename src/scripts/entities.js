@@ -39,52 +39,19 @@ var PhysicsEntity = function (x, y, w, h) {
 var Box = function(x, y, w, h) {
     PhysicsEntity.apply(this, arguments);
 
-    this.render = function(rx, ry) {
-        rx = this.x;
-        ry = this.y;
-        fill(255, 0, 0);
-        rect(rx, ry, this.width, this.height);
+    var type = types.box;
+
+    this.getType = function() {
+        return type;
     };
 
-    // TODO: This needs to be able to handle box-to-ball collisions
-    this.isCollidingWith = function(Entity) {
-        var te = this;
-
-        var t1 = te.getTop();
-        var l1 = te.getLeft();
-        var b1 = te.getBottom();
-        var r1 = te.getRight();
-
-        var t2 = Entity.getTop();
-        var l2 = Entity.getLeft();
-        var b2 = Entity.getBottom();
-        var r2 = Entity.getRight();
-        if (b1 < t2 || t1 > b2 || r1 < l2 || l1 > r2) {
+    this.setType = function(t) {
+        if(types[t])
+            type = types[t]
+        else
             return false;
-        }
         return true;
-    };
-
-    this.showPhysics = function() {
-        fill('#333');
-        rect(this.x, this.y, this.width, this.height);
-        stroke(70, 255, 33);
-        strokeWeight(2);
-        line(this.getMidX(), this.getMidY(), this.getMidX() + this.vx * 5, this.getMidY() + this.vy * 5);
-        stroke('#00A0E2');
-        line(this.getMidX(), this.getMidY(), this.getMidX() + this.ax * 25, this.getMidY() + this.ay * 25);
-        stroke('#D42322');
-        line(this.getMidX(), this.getMidY(), this.getMidX() + (this.vx - this.ax) * 5, this.getMidY() + (this.vy - this.ay) * 5);
-        noStroke();
-        fill('#444');
-        text(
-            "pos: " + this.x.toFixed(2) + ' | ' + this.y.toFixed(2)
-            + "\nacc: " + this.ax.toFixed(2) + ' | ' + this.ay.toFixed(2)
-            + "\nvel: " + this.vx.toFixed(2) + ' | ' + this.vy.toFixed(2),
-            this.x,
-            this.y + this.height + 14
-         );
-    };
+    }
 
     // TODO: The way the entities are stored they will get overwritten if
     // a new entity is created after another is destroyed

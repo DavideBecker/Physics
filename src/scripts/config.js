@@ -23,3 +23,9 @@ var keys = {
     LEFT: 37,
     RIGHT: 39
 }
+
+var types = {
+    box: "box",
+    //circle: "circle",
+    //line: "line"
+};

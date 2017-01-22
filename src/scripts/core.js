@@ -1,4 +1,5 @@
 require('config');
+require('shapes');
 
 function elasticResolve(Entitiy1, Entitiy2) {
     // TODO: Rewrite the whole resolve function to be more accurate
@@ -108,14 +109,15 @@ var Core = function() {
         }
     };
 
+    core.shapeRenderer = new Shapes();
+
     core.render = {
         entities: function() {
             for (var index in core.entities) {
                 var e = core.entities[index];
-                e.render();
-                if (core.showPhysics) {
-                    e.showPhysics();
-                }
+                core.shapeRenderer.render(e);
+                if(core.showPhysics)
+                    core.shapeRenderer.renderPhysicsOf(e);
             }
         },
         animations: function() {

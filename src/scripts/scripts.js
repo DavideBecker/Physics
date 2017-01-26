@@ -34,12 +34,6 @@ var anim = new Animation(function(step) {
 anim.isRunning = true;
 anim.isLooping = true;
 
-// This bit is used for the delta time to handle frame skips and slowdowns
-var times = {
-    prev: new Date().getTime(),
-    curr: null
-};
-
 // Anything that uses p5.js values should be set in the setup() function
 function setup() {
     frameRate(config.FPS);
@@ -87,10 +81,5 @@ function draw() {
 
     // This is where the engine magic happens
     background(255);
-    times.curr = new Date().getTime();
-    var diff = times.curr - times.prev;
-    game.positions.update(diff / 20);
-    times.prev = times.curr;
-    game.detectCollisions();
-    game.render.all();
+    game.tick();
 };

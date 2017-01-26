@@ -11,6 +11,12 @@ var Core = function() {
     core.animations = [];
     core.keysPressed = {};
 
+    // This bit is used for the delta time to handle frame skips and slowdowns
+    core.timing = {
+        prev: new Date().getTime(),
+        curr: null
+    };
+
     core.generateEntityId = function(E) {
         var newId = guid();
         if(!game.entities[newId]) {
@@ -98,6 +104,19 @@ var Core = function() {
             core.render.entities();
             core.render.animations();
         }
+    };
+
+    core.tick = function() {
+        core.timing.curr = new Date().getTime();
+        var diff = core.timing.curr - core.timing.prev;
+
+        if(isActive) {
+            core.positions.update(diff / 20);
+            core.detectCollisions();
+        }
+
+        core.render.all();
+        core.timing.prev = core.timing.curr;
     };
 };
 

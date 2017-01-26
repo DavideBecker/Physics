@@ -11,6 +11,9 @@ function Collider() {
             var b2 = b.getBottom();
             var r2 = b.getRight();
 
+            if(a.isStatic && b.isStatic)
+                return false;
+
             if (b1 < t2 || t1 > b2 || r1 < l2 || l1 > r2) {
                 return false;
             }

@@ -1,3 +1,5 @@
+
+// TODO: Implement elastic collisions
 function Resolver() {
     var resolvers = {
         box_box: function(a, b) {
@@ -21,11 +23,13 @@ function Resolver() {
                     if (wy > -hx) {
                         // Bottom
                         a.position.y = b.getBottom();
+                        a.velocity.y = 0;
                         fill(0, 0, 255);
                         rect(b.getLeft(), b.getBottom(), b.size.width, 5);
                     } else {
                         // Left
                         a.position.x = b.getLeft() - a.size.width;
+                        a.velocity.x = 0;
                         fill(255, 255, 0);
                         rect(b.getLeft() - 5, b.getTop(), 5, b.size.height);
                     }
@@ -33,12 +37,13 @@ function Resolver() {
                     if (wy > -hx) {
                         // Right
                         a.position.x = b.getRight();
-
+                        a.velocity.x = 0;
                         fill(255, 0, 0);
                         rect(b.getRight(), b.getTop(), 5, b.size.height);
                     } else {
                         // Top
                         a.position.y = b.getTop() - a.size.height;
+                        a.velocity.y = 0;
                         fill(0, 255, 0);
                         rect(b.getLeft(), b.getTop() - 5, b.size.width, 5);
                     }

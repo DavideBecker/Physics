@@ -25,7 +25,7 @@ function Acceleration(x, y) {
 }
 
 function Gravity(x, y) {
-    this.x = x || 0;
+    this.x = x || config.GRAVITY_X;
     this.y = y || config.GRAVITY_Y;
 }
 

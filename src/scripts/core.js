@@ -121,3 +121,14 @@ var Core = function() {
 };
 
 var game = new Core();
+
+
+var isActive;
+
+window.onfocus = function () {
+  isActive = true;
+};
+
+window.onblur = function () {
+  isActive = false;
+};

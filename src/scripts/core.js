@@ -3,65 +3,6 @@ require('shapes');
 require('collisions');
 require('resolver');
 
-function elasticResolve(Entitiy1, Entitiy2) {
-    // TODO: Rewrite the whole resolve function to be more accurate
-    // --> https://en.wikipedia.org/wiki/Elastic_collision
-    //
-
-    var pMidX = Entitiy1.getMidX();
-    var pMidY = Entitiy1.getMidY();
-    var aMidX = Entitiy2.getMidX();
-    var aMidY = Entitiy2.getMidY();
-    var dx = (aMidX - pMidX) / Entitiy2.halfWidth;
-    var dy = (aMidY - pMidY) / Entitiy2.halfHeight;
-    var absDX = abs(dx);
-    var absDY = abs(dy);
-    if (abs(absDX - absDY) < 0.1) {
-        if (dx < 0) {
-            Entitiy1.x = Entitiy2.getRight();
-        } else {
-            Entitiy1.x = Entitiy2.getLeft() - Entitiy1.width;
-        }
-        if (dy < 0) {
-            Entitiy1.y = Entitiy2.getBottom();
-        } else {
-            Entitiy1.y = Entitiy2.getTop() - Entitiy1.height;
-        }
-        if (Math.random() < 0.5) {
-            Entitiy1.vx = -Entitiy1.vx * Entitiy2.restitution;
-            if (abs(Entitiy1.vx) < config.STICKY_THRESHOLD) {
-                Entitiy1.vx = 0;
-            }
-        } else {
-            Entitiy1.vy = -Entitiy1.vy * Entitiy2.restitution;
-            if (abs(Entitiy1.vy) < config.STICKY_THRESHOLD) {
-                Entitiy1.vy = 0;
-            }
-        }
-    } else if (absDX > absDY) {
-        if (dx < 0) {
-            Entitiy1.x = Entitiy2.getRight();
-        } else {
-            Entitiy1.x = Entitiy2.getLeft() - Entitiy1.width;
-        }
-        Entitiy1.vx = -Entitiy1.vx * Entitiy2.restitution;
-        if (abs(Entitiy1.vx) < config.STICKY_THRESHOLD) {
-            Entitiy1.vx = 0;
-        }
-    } else {
-        if (dy < 0) {
-            Entitiy1.y = Entitiy2.getBottom();
-        } else {
-            Entitiy1.y = Entitiy2.getTop() - Entitiy1.height;
-        }
-        Entitiy1.vy = -Entitiy1.vy * Entitiy2.restitution;
-        if (abs(Entitiy1.vy) < config.STICKY_THRESHOLD) {
-            Entitiy1.vy = 0;
-        }
-    }
-};
-
-
 var Core = function() {
     var core = this;
 

@@ -75,11 +75,11 @@ var Core = function() {
             for (var index in entities) {
                 entity = entities[index];
                 // TODO: Position calculation still feels a bit off
-                entity.vx = lerp(entity.vx, 0, entity.gx);
-                entity.vx += entity.ax * elapsed + entity.gx;
-                entity.vy += entity.ay * elapsed + entity.gy;
-                entity.x += entity.vx * elapsed;
-                entity.y += entity.vy * elapsed;
+                entity.velocity.x = lerp(entity.velocity.x, 0, entity.gravity.x);
+                entity.velocity.x += entity.acceleration.x * elapsed + entity.gravity.x;
+                entity.velocity.y += entity.acceleration.y * elapsed + entity.gravity.y;
+                entity.position.x += entity.velocity.x * elapsed;
+                entity.position.y += entity.velocity.y * elapsed;
             }
         }
     };

@@ -8,15 +8,15 @@ require('engine');
 
 // We can easily create new physic entities, that interact with each other
 var b1 = new Box(50, 100, 50, 50);
-var b2 = new Box(100, 200, 500, 50);
+var b2 = new Box(0, 200, 500, 50);
 var b3 = new Box(300, 300, 50, 50);
 
 // We can change the velocity, acceleration etc anywhere we want to.
 // Either at the start to give them some initial momentum or on demand.
 // Another example below changes the velocity of an entity when keys are pressed.
-b1.gy = 0;
-b2.gy = 0;
-b3.gy = 0;
+b1.gravity.y = 1;
+b2.gravity.y = 0;
+b3.gravity.y = 0;
 
 // This shows us some graphs and stuff to visualize momentum and collisions
 game.showPhysics = true;
@@ -50,33 +50,35 @@ function keyReleased() {
     game.keysPressed[keyCode] = false;
 };
 
+var bvel = 5;
+
 function draw() {
-    b1.vx = 0;
-    b1.vy = 0;
+    b1.velocity.x = 0;
+    b1.velocity.y = 0;
 
     // This bit allows to control one of the rectangles by changing its velocity
     // when W, A, S or D is pressed or stopping its momentum by pressing space
     if (game.keysPressed[keys.SPACE]) {
-        b1.vx = 0;
-        b1.vy = 0;
-        b1.ax = 0;
-        b1.ay = 0;
+        b1.velocity.x = 0;
+        b1.velocity.y = 0;
+        b1.acceleration.x = 0;
+        b1.acceleration.y = 0;
     }
 
     if (game.keysPressed[keys.D]) {
-        b1.vx = 5;
+        b1.velocity.x = bvel;
     }
 
     if (game.keysPressed[keys.A]) {
-        b1.vx = -5;
+        b1.velocity.x = -bvel;
     }
 
     if (game.keysPressed[keys.S]) {
-        b1.vy = 5;
+        b1.velocity.y = bvel;
     }
 
     if (game.keysPressed[keys.W]) {
-        b1.vy = -5;
+        b1.velocity.y = -bvel;
     }
 
     // This is where the engine magic happens

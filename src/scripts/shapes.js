@@ -3,32 +3,32 @@
 function Shapes() {
     var renderShape = {
         box: function(E) {
-            rx = E.x;
-            ry = E.y;
+            rx = E.position.x;
+            ry = E.position.y;
             fill(255, 0, 0);
-            rect(rx, ry, E.width, E.height);
+            rect(rx, ry, E.size.width, E.size.height);
         }
     };
 
     var renderPhysicsOfShape = {
         box: function(E) {
             fill('#333');
-            rect(E.x, E.y, E.width, E.height);
+            rect(E.position.x, E.position.y, E.size.width, E.size.height);
             stroke(70, 255, 33);
             strokeWeight(2);
-            line(E.getMidX(), E.getMidY(), E.getMidX() + E.vx * 5, E.getMidY() + E.vy * 5);
+            line(E.getMidX(), E.getMidY(), E.getMidX() + E.velocity.x * 5, E.getMidY() + E.velocity.y * 5);
             stroke('#00A0E2');
-            line(E.getMidX(), E.getMidY(), E.getMidX() + E.ax * 25, E.getMidY() + E.ay * 25);
+            line(E.getMidX(), E.getMidY(), E.getMidX() + E.acceleration.x * 25, E.getMidY() + E.acceleration.y * 25);
             stroke('#D42322');
-            line(E.getMidX(), E.getMidY(), E.getMidX() + (E.vx - E.ax) * 5, E.getMidY() + (E.vy - E.ay) * 5);
+            line(E.getMidX(), E.getMidY(), E.getMidX() + (E.velocity.x - E.acceleration.x) * 5, E.getMidY() + (E.velocity.y - E.acceleration.y) * 5);
             noStroke();
             fill('#444');
             text(
-                "pos: " + E.x.toFixed(2) + ' | ' + E.y.toFixed(2)
-                + "\nacc: " + E.ax.toFixed(2) + ' | ' + E.ay.toFixed(2)
-                + "\nvel: " + E.vx.toFixed(2) + ' | ' + E.vy.toFixed(2),
-                E.x,
-                E.y + E.height + 14
+                "pos: " + E.position.x.toFixed(2) + ' | ' + E.position.y.toFixed(2)
+                + "\nacc: " + E.acceleration.x.toFixed(2) + ' | ' + E.acceleration.y.toFixed(2)
+                + "\nvel: " + E.velocity.x.toFixed(2) + ' | ' + E.velocity.y.toFixed(2),
+                E.position.x,
+                E.position.y + E.size.height + 14
              );
         }
     }

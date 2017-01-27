@@ -9,6 +9,7 @@ var PhysicsEntity = function (x, y, w, h) {
 
     this.restitution = 0.3;
     this.isStatic = false;
+    this.layer = 100;
 
     // TODO: Simple function to approach specified coordinates
     this.moveTo = function(x, y) {

@@ -32,10 +32,6 @@ var Core = function() {
     // TODO: Implement something like spatial hashing to improve performance
     // Right now this function checks every entity with every entity,
     // making it redundant and not well optimized
-    //
-    // TODO: Don't check for entities in the 2nd for loop that already went
-    // through the first for loop, or else every element gets checked twice,
-    // once at first position and once in 2nd. Super redundant!
     core.detectCollisions = function() {
         var traversed = {};
 
@@ -74,10 +70,10 @@ var Core = function() {
             var entities = core.entities;
             for (var index in entities) {
                 entity = entities[index];
-                // TODO: Position calculation still feels a bit off
+                // TODO: elapsed doesn't seem to be working as intended
                 entity.velocity.x = lerp(entity.velocity.x, 0, entity.gravity.x);
-                entity.velocity.x += entity.acceleration.x * elapsed + entity.gravity.x;
-                entity.velocity.y += entity.acceleration.y * elapsed + entity.gravity.y;
+                //entity.velocity.x += (entity.acceleration.x + entity.gravity.x) * elapsed;
+                entity.velocity.y += (entity.acceleration.y + entity.gravity.y) * elapsed;
                 entity.position.x += entity.velocity.x * elapsed;
                 entity.position.y += entity.velocity.y * elapsed;
             }

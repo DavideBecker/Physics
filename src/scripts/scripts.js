@@ -8,8 +8,18 @@ require('engine');
 
 // We can easily create new physic entities, that interact with each other
 var b1 = new Box(50, 100, 50, 50);
-var b2 = new Box(0, 200, 500, 50);
+var b2 = new Box(0, 200, 1000, 500);
 var b3 = new Box(300, 300, 50, 50);
+
+// If an entity is static it won't be pushed back when colliding, but can push
+// other entities away. Two static objects don't interact with each other at all
+b2.isStatic = true;
+b3.isStatic = true;
+
+// We can use layers to render objects ontop of each other. By default every
+// element sits on layer 100, so you can move elements to the background or in
+// front of the game scene.
+b3.layer = 101;
 
 // We can change the velocity, acceleration etc anywhere we want to.
 // Either at the start to give them some initial momentum or on demand.
@@ -41,7 +51,7 @@ function setup() {
 }
 
 // This, along with the keyReleased() function allows us to have a super
-// flexible way to check if a key is pressed (core.keysPresed[32] for space)
+// flexible way to check if a key is pressed (game.keysPresed[32] for space)
 function keyPressed() {
     game.keysPressed[keyCode] = true;
 };
@@ -53,24 +63,19 @@ function keyReleased() {
 var bvel = 5;
 
 function draw() {
-    b1.velocity.x = 0;
-    b1.velocity.y = 0;
 
     // This bit allows to control one of the rectangles by changing its velocity
     // when W, A, S or D is pressed or stopping its momentum by pressing space
     if (game.keysPressed[keys.SPACE]) {
-        b1.velocity.x = 0;
-        b1.velocity.y = 0;
-        b1.acceleration.x = 0;
-        b1.acceleration.y = 0;
+        b1.velocity.y = -bvel * 2;
     }
 
     if (game.keysPressed[keys.D]) {
-        b1.velocity.x = bvel;
+        b1.velocity.x = bvel * 3;
     }
 
     if (game.keysPressed[keys.A]) {
-        b1.velocity.x = -bvel;
+        b1.velocity.x = -bvel * 3;
     }
 
     if (game.keysPressed[keys.S]) {
@@ -78,7 +83,7 @@ function draw() {
     }
 
     if (game.keysPressed[keys.W]) {
-        b1.velocity.y = -bvel;
+        //b1.velocity.y = -bvel * 5;
     }
 
     // This is where the engine magic happens

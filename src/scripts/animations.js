@@ -29,7 +29,7 @@ function Animation(anim, duration, easing) {
 
         if(this.progress <= 0) {
             dir = 1;
-            console.log(new Date().getTime() - this.start)
+            //console.log(new Date().getTime() - this.start)
         }
 
         if(this.isLooping)

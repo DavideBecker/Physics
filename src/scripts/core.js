@@ -39,10 +39,13 @@ var Core = function() {
             var e1 = core.entities[i];
             traversed[e1.id] = true;
 
+            if(!e1.isVisible)
+                continue;
+
             for (var ii in core.entities) {
                 var e2 = core.entities[ii];
 
-                if(traversed[e2.id])
+                if(traversed[e2.id] || !e2.isVisible)
                     continue;
 
                 if(core.collider.isColliding(e1, e2)) {
@@ -70,6 +73,8 @@ var Core = function() {
             var entities = core.entities;
             for (var index in entities) {
                 entity = entities[index];
+                if(!entity.isVisible)
+                    continue;
                 // TODO: elapsed doesn't seem to be working as intended
                 entity.velocity.x = lerp(entity.velocity.x, 0, entity.gravity.x);
                 //entity.velocity.x += (entity.acceleration.x + entity.gravity.x) * elapsed;
@@ -86,6 +91,8 @@ var Core = function() {
         entities: function() {
             for (var index in core.entities) {
                 var e = core.entities[index];
+                if(!e.isVisible)
+                    continue;
                 core.shapeRenderer.render(e);
                 if(core.showPhysics)
                     core.shapeRenderer.renderPhysicsOf(e);

@@ -9,7 +9,6 @@ var Core = function() {
     core.showPhysics = false;
     core.entities = {};
     core.animations = [];
-    core.keysPressed = {};
 
     // This bit is used for the delta time to handle frame skips and slowdowns
     core.timing = {

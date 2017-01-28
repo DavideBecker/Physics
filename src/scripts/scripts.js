@@ -50,39 +50,29 @@ function setup() {
     createCanvas(windowWidth - 10, windowHeight - 10);
 }
 
-// This, along with the keyReleased() function allows us to have a super
-// flexible way to check if a key is pressed (game.keysPresed[32] for space)
-function keyPressed() {
-    game.keysPressed[keyCode] = true;
-};
-
-function keyReleased() {
-    game.keysPressed[keyCode] = false;
-};
-
 var bvel = 5;
 
 function draw() {
 
     // This bit allows to control one of the rectangles by changing its velocity
     // when W, A, S or D is pressed or stopping its momentum by pressing space
-    if (game.keysPressed[keys.SPACE]) {
+    if (keyboard.isPressed(keys.SPACE)) {
         b1.velocity.y = -bvel * 2;
     }
 
-    if (game.keysPressed[keys.D]) {
+    if (keyboard.isPressed(keys.D)) {
         b1.velocity.x = bvel * 3;
     }
 
-    if (game.keysPressed[keys.A]) {
+    if (keyboard.isPressed(keys.A)) {
         b1.velocity.x = -bvel * 3;
     }
 
-    if (game.keysPressed[keys.S]) {
+    if (keyboard.isPressed(keys.S)) {
         b1.velocity.y = bvel;
     }
 
-    if (game.keysPressed[keys.W]) {
+    if (keyboard.isPressed(keys.W)) {
         //b1.velocity.y = -bvel * 5;
     }
 

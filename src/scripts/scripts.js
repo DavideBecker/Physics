@@ -11,15 +11,24 @@ var b1 = new Box(50, 100, 50, 50);
 var b2 = new Box(0, 200, 1000, 500);
 var b3 = new Box(300, 300, 50, 50);
 
+b1.velocity.x = 10;
+
 // If an entity is static it won't be pushed back when colliding, but can push
 // other entities away. Two static objects don't interact with each other at all
 b2.isStatic = true;
 b3.isStatic = true;
 
+// We can make an entity temporarily invisible, this prevents it
+// from interacting with anything
+//b2.isVisible = false;
+b3.isVisible = false;
+
 // We can use layers to render objects ontop of each other. By default every
-// element sits on layer 100, so you can move elements to the background or in
+// element sits on layer 1000, so you can move elements to the background or in
 // front of the game scene.
-b3.layer = 101;
+// Elements only collide with other elements that are within 100 layers of each
+// other.
+b3.changeLayer(101);
 
 // We can change the velocity, acceleration etc anywhere we want to.
 // Either at the start to give them some initial momentum or on demand.
@@ -41,7 +50,7 @@ var anim = new Animation(function(step) {
     rect(100 * step, 100 * step, 100, 100);
 }, 2000);
 // When we're ready to run it we can set isRunning to true and it will animate
-anim.isRunning = true;
+//anim.isRunning = true;
 anim.isLooping = true;
 
 // Anything that uses p5.js values should be set in the setup() function

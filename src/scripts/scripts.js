@@ -10,8 +10,8 @@ require('engine');
 
 // We can easily create new physic entities, that interact with each other
 var b1 = new Box(50, 100, 50, 50);
-var b2 = new Box(0, 200, 1000, 500);
-var b3 = new Box(300, 300, 50, 50);
+var b2 = new Box(0, 200, 500, 200);
+var b3 = new Box(500, 175, 500, 200);
 
 b1.velocity.x = 10;
 
@@ -23,7 +23,7 @@ b3.isStatic = true;
 // We can make an entity temporarily invisible, this prevents it
 // from interacting with anything
 // b2.isVisible = false;
-b3.isVisible = false;
+// b3.isVisible = false;
 
 // We can use layers to render objects ontop of each other. By default every
 // element sits on layer 1000, so you can move elements to the background or in

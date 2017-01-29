@@ -16,6 +16,8 @@ function PhysicsEntity(x, y, w, h) {
 function GameEntity(x, y, w, h, ty) {
     PhysicsEntity.apply(this, arguments);
 
+    this.collidesWith = {};
+
     var type = ty;
 
     this.getType = function() {

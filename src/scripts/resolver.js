@@ -18,6 +18,8 @@ function Resolver() {
                 var wy = w * dy;
                 var hx = h * dx;
 
+                noStroke();
+
                 if(wy > hx) {
                     if(wy > -hx) {
                         // Bottom

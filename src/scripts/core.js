@@ -7,6 +7,7 @@ var isActive = true;
 
 window.onfocus = function() {
     isActive = true;
+    keyboard._pressed = {};
 };
 
 window.onblur = function() {
@@ -62,6 +63,9 @@ function Core() {
                     continue;
                 }
 
+                delete E1.collidesWith[E2.id];
+                delete E2.collidesWith[E1.id];
+
                 if(that.collider.isColliding(E1, E2)) {
                     that.resolver.resolve(E1, E2);
                     // console.log(e1, ' and ', e2, ' are colliding.');
@@ -116,6 +120,17 @@ function Core() {
                 that.shapeRenderer.render(E1);
                 if(that.showPhysics) {
                     that.shapeRenderer.renderPhysicsOf(E1);
+                }
+            }
+
+            if(that.showPhysics) {
+                for(var e1idpy in that.entities) {
+                    var E1py = that.entities[e1idpy];
+
+                    if(!E1py.isVisible) {
+                        continue;
+                    }
+                    that.shapeRenderer.renderDebugOf(E1py);
                 }
             }
         },

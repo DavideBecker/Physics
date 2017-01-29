@@ -19,6 +19,9 @@ function Collider() {
                 return false;
             }
 
+            E1.collidesWith[E2.id] = E2;
+            E2.collidesWith[E1.id] = E1;
+
             return true;
         }
     };

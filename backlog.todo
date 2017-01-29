@@ -8,6 +8,10 @@ Collisions:
 Features:
     ☐ Figure out a way to add properties to entities (Like colors, sprites etc)
 
+    ☐ Add more shapes
+        The base is pretty flexible, so it should be easy to add new shapes
+        (Circle, line, triangle etc)
+
     ☐ Correctly implement layers
         I want to be able to edit the order objects are rendered in, so there's a
         foreground and background. This also has the added benefit of having a 2.5d
@@ -20,6 +24,12 @@ Features:
         colliding with, checking their surfaces and changing the behaviour of
         the main entity. However, this could result in odd behaviour if something
         collides with multiple different surfaces
+
+    ☐ Seperate entities and ground from each other
+        It seemed cool to have everything just based off of one main entity, but
+        the engine is missing some kind of importance hirarcy. There's no difference
+        between the ground and an enemy. So there should probably be a player
+        object, an entity object and a landscape object.
 
 Bugs:
     ☐ Make delta time calculations more accurate

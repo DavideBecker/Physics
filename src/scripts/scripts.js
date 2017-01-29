@@ -1,3 +1,5 @@
+'use strict';
+
 require('engine');
 
 // Some of the essential engine components were copied from
@@ -20,7 +22,7 @@ b3.isStatic = true;
 
 // We can make an entity temporarily invisible, this prevents it
 // from interacting with anything
-//b2.isVisible = false;
+// b2.isVisible = false;
 b3.isVisible = false;
 
 // We can use layers to render objects ontop of each other. By default every
@@ -32,7 +34,8 @@ b3.changeLayer(101);
 
 // We can change the velocity, acceleration etc anywhere we want to.
 // Either at the start to give them some initial momentum or on demand.
-// Another example below changes the velocity of an entity when keys are pressed.
+// Another example below changes the velocity of an entity when keys are
+// pressed.
 b1.gravity.y = 1;
 b2.gravity.y = 0;
 b3.gravity.y = 0;
@@ -49,14 +52,17 @@ var anim = new Animation(function(step) {
     // Although it could
     rect(100 * step, 100 * step, 100, 100);
 }, 2000);
+
 // When we're ready to run it we can set isRunning to true and it will animate
-//anim.isRunning = true;
+// anim.isRunning = true;
 anim.isLooping = true;
 
 // Anything that uses p5.js values should be set in the setup() function
 function setup() {
+
     frameRate(config.FPS);
     createCanvas(windowWidth - 10, windowHeight - 10);
+
 }
 
 var bvel = 5;
@@ -65,27 +71,27 @@ function draw() {
 
     // This bit allows to control one of the rectangles by changing its velocity
     // when W, A, S or D is pressed or stopping its momentum by pressing space
-    if (keyboard.isPressed(keys.SPACE)) {
+    if(keyboard.isPressed(keys.SPACE)) {
         b1.velocity.y = -bvel * 2;
     }
 
-    if (keyboard.isPressed(keys.D)) {
+    if(keyboard.isPressed(keys.D)) {
         b1.velocity.x = bvel * 3;
     }
 
-    if (keyboard.isPressed(keys.A)) {
+    if(keyboard.isPressed(keys.A)) {
         b1.velocity.x = -bvel * 3;
     }
 
-    if (keyboard.isPressed(keys.S)) {
+    if(keyboard.isPressed(keys.S)) {
         b1.velocity.y = bvel;
     }
 
-    if (keyboard.isPressed(keys.W)) {
-        //b1.velocity.y = -bvel * 5;
+    if(keyboard.isPressed(keys.W)) {
+        // b1.velocity.y = -bvel * 5;
     }
 
     // This is where the engine magic happens
     background(255);
     game.tick();
-};
+}

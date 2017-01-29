@@ -25,7 +25,7 @@ var keys = {
 }
 
 var types = {
-    box: "box",
+    box: 'box',
     //circle: "circle",
     //line: "line"
 };

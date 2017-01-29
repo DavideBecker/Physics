@@ -1,25 +1,28 @@
 function KeyboardInput() {
-    var kb = this;
-    kb._pressed = {};
+    var that = this;
 
-    kb.keyPressed = function(e) {
-        kb._pressed[e.keyCode] = true;
+    that._pressed = {};
+
+    that.keyPressed = function(event) {
+        that._pressed[event.keyCode] = true;
     };
 
-    kb.keyReleased = function(e) {
-        kb._pressed[e.keyCode] = false;
+    that.keyReleased = function(event) {
+        that._pressed[event.keyCode] = false;
     };
 
-    kb.isPressed = function(k) {
-        if(kb._pressed[k])
+    that.isPressed = function(key) {
+        if(that._pressed[key]) {
             return true;
+        }
+
         return false;
     }
-};
+}
 
 var keyboard = new KeyboardInput();
 
-window.onload = function(){
-    document.addEventListener("keydown", keyboard.keyPressed, false);
-    document.addEventListener("keyup", keyboard.keyReleased, false);
+window.onload = function() {
+    document.addEventListener('keydown', keyboard.keyPressed, false);
+    document.addEventListener('keyup', keyboard.keyReleased, false);
 }

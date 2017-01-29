@@ -29,9 +29,9 @@ function Gravity(x, y) {
     this.y = y || config.GRAVITY_Y;
 }
 
-function DimensionWrapper(pos, s, vel, acc, grav) {
+function DimensionWrapper(pos, size, vel, acc, grav) {
     this.position = new Position(pos.x, pos.y);
-    this.size = new Size(s.width, s.height);
+    this.size = new Size(size.width, size.height);
     this.velocity = new Velocity(vel.x, vel.y);
     this.acceleration = new Acceleration(acc.x, acc.y);
     this.gravity = new Gravity(grav.x, grav.y);

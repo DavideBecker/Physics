@@ -1,4 +1,4 @@
-var PhysicsEntity = function (x, y, w, h) {
+function PhysicsEntity(x, y, w, h) {
     DimensionWrapper.apply(this, [
         new Position(x, y),
         new Size(w, h),
@@ -11,27 +11,24 @@ var PhysicsEntity = function (x, y, w, h) {
 
     this.isStatic = false;
     this.isVisible = true;
+}
 
-    // TODO: Simple function to approach specified coordinates
-    this.moveTo = function(x, y) {
-
-    };
-};
-
-var GameEntity = function(x, y, w, h, t) {
+function GameEntity(x, y, w, h, ty) {
     PhysicsEntity.apply(this, arguments);
 
-    var type = t;
+    var type = ty;
 
     this.getType = function() {
         return type;
     };
 
-    this.setType = function(t) {
-        if(types[t])
-            type = types[t]
-        else
+    this.setType = function(st) {
+        if(types[st]) {
+            type = types[st]
+        } else {
             return false;
+        }
+
         return true;
     }
 
@@ -45,15 +42,15 @@ var GameEntity = function(x, y, w, h, t) {
         return layer;
     };
 
-    this.changeLayer = function(l) {
-        layer = l;
+    this.changeLayer = function(lay) {
+        layer = lay;
     };
 
     game.generateEntityId(this);
-};
+}
 
-var Box = function(x, y, w, h) {
+function Box(x, y, w, h) {
     var type = types.box;
 
     GameEntity.apply(this, [x, y, w, h, type]);
-};
+}

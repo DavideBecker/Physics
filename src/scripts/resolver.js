@@ -1,55 +1,56 @@
-
 // TODO: Implement elastic collisions
 function Resolver() {
     var resolvers = {
-        box_box: function(a, b) {
+        boxandbox: function(E1, E2) {
             fill(0);
 
             // Minkowski sum from
             // http://gamedev.stackexchange.com/questions/29786/a-simple-2d-rectangle-collision-algorithm-that-also-determines-which-sides-that
 
-            var w = 0.5 * (a.size.width + b.size.width);
-            var h = 0.5 * (a.size.height + b.size.height);
+            var w = 0.5 * (E1.size.width + E2.size.width);
+            var h = 0.5 * (E1.size.height + E2.size.height);
 
-            var dx = a.getMidX() - b.getMidX();
-            var dy = a.getMidY() - b.getMidY();
+            var dx = E1.getMidX() - E2.getMidX();
+            var dy = E1.getMidY() - E2.getMidY();
 
-            if (Math.abs(dx) <= w && Math.abs(dy) <= h) {
-                /* collision! */
+            if(Math.abs(dx) <= w && Math.abs(dy) <= h) {
+                // collision!
                 var wy = w * dy;
                 var hx = h * dx;
 
-                if (wy > hx) {
-                    if (wy > -hx) {
+                if(wy > hx) {
+                    if(wy > -hx) {
                         // Bottom
-                        a.position.y = b.getBottom();
-                        a.velocity.y = 0;
+                        E1.position.y = E2.getBottom();
+                        E1.velocity.y = 0;
                         fill(0, 0, 255);
-                        if(game.showPhysics)
-                            rect(b.getLeft(), b.getBottom(), b.size.width, 5);
+                        if(game.showPhysics) {
+                            rect(E2.getLeft(), E2.getBottom(), E2.size.width, 5);
+                        }
                     } else {
                         // Left
-                        a.position.x = b.getLeft() - a.size.width;
-                        a.velocity.x = 0;
+                        E1.position.x = E2.getLeft() - E1.size.width;
+                        E1.velocity.x = 0;
                         fill(255, 255, 0);
-                        if(game.showPhysics)
-                            rect(b.getLeft() - 5, b.getTop(), 5, b.size.height);
+                        if(game.showPhysics) {
+                            rect(E2.getLeft() - 5, E2.getTop(), 5, E2.size.height);
+                        }
+                    }
+                } else if(wy > -hx) {
+                    // Right
+                    E1.position.x = E2.getRight();
+                    E1.velocity.x = 0;
+                    fill(255, 0, 0);
+                    if(game.showPhysics) {
+                        rect(E2.getRight(), E2.getTop(), 5, E2.size.height);
                     }
                 } else {
-                    if (wy > -hx) {
-                        // Right
-                        a.position.x = b.getRight();
-                        a.velocity.x = 0;
-                        fill(255, 0, 0);
-                        if(game.showPhysics)
-                            rect(b.getRight(), b.getTop(), 5, b.size.height);
-                    } else {
-                        // Top
-                        a.position.y = b.getTop() - a.size.height;
-                        a.velocity.y = 0;
+                    // Top
+                    E1.position.y = E2.getTop() - E1.size.height;
+                    E1.velocity.y = 0;
+                    if(game.showPhysics) {
                         fill(0, 255, 0);
-                        if(game.showPhysics)
-                            rect(b.getLeft(), b.getTop() - 5, b.size.width, 5);
+                        rect(E2.getLeft(), E2.getTop() - 5, E2.size.width, 5);
                     }
                 }
             }
@@ -57,14 +58,16 @@ function Resolver() {
     };
 
     this.resolve = function(E1, E2) {
-        if(E1.id === E2.id)
+        if(E1.id === E2.id) {
             return false;
+        }
 
         var entities = [E1, E2];
 
-        if(E1.type > E2.type)
+        if(E1.type > E2.type) {
             entities = [E2, E1];
+        }
 
-        return resolvers[entities[0].getType() + '_' + entities[1].getType()](E1, E2);
+        return resolvers[entities[0].getType() + 'and' + entities[1].getType()](E1, E2);
     }
-};
+}

@@ -1,0 +1,32 @@
+Collisions:
+    ☐ Implement elastic collisions
+        The resolver just displaces the piercing entity outside of the collided object
+        This doesn't translate any momentum, so if two ojects collide right now, one
+        just pushes the other away. Best case, there's a restitiution value that determines
+        how strong something is when colliding.
+
+Features:
+    ☐ Figure out a way to add properties to entities (Like colors, sprites etc)
+
+    ☐ Correctly implement layers
+        I want to be able to edit the order objects are rendered in, so there's a
+        foreground and background. This also has the added benefit of having a 2.5d
+        engine with collisions, which is pretty awesome!
+
+    ☐ Add surfaces / materials
+        Entities should all have a material and behave differently depending on
+        which materials collide with each other.
+        This could be done by giving every entity an array of entities it's
+        colliding with, checking their surfaces and changing the behaviour of
+        the main entity. However, this could result in odd behaviour if something
+        collides with multiple different surfaces
+
+Bugs:
+    ☐ Make delta time calculations more accurate
+        Right now the movement still depends on the framerate as the delta time
+        collisions are wonky
+
+Performance:
+    ☐ Don't check every entitiy with every other entity
+        Right now the engine checks every frame if every entity is colliding with
+        any entity, that seems pretty slow

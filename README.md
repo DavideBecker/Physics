@@ -10,5 +10,11 @@ Next, we'll want to build the projects source files. To do this you just need to
 Now the project is set up. You can either directly open `app/index.html` in a webbrowser or run `node run.js` and visit [localhost:8000](http://localhost:8000)
 
 # Contributing
-
 Instead of running `gulp` every time you edit something and want to view your changes you can use `gulp watch` to automatically rebuild the source whenever a file is changed.
+
+# Linting
+There are preconfigured eslint and sass-lint files in this project. If you're using atom you can install these plugins to enable live linting:
+
+[linter](https://atom.io/packages/linter)    
+[linter-eslint](https://atom.io/packages/linter-eslint)    
+[linter-sass-lint](https://atom.io/packages/linter-sass-lint)    

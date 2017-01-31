@@ -7,7 +7,7 @@ var isActive = true;
 
 window.onfocus = function() {
     isActive = true;
-    keyboard._pressed = {};
+    input.devices.keyboard._pressed = {};
 };
 
 window.onblur = function() {
@@ -30,14 +30,14 @@ var Core = function() {
         curr: null
     };
 
-    that.generateEntityId = function(E1) {
+    that.generateUniqueId = function(Obj, container) {
         var newId = guid();
 
-        if(that.entities[newId]) {
-            that.generateEntityId(E1);
+        if(container[newId]) {
+            that.generateUniqueId(Obj, container);
         } else {
-            E1.id = guid();
-            that.entities[newId] = E1;
+            Obj.id = guid();
+            container[newId] = Obj;
         }
     };
 
@@ -96,7 +96,7 @@ var Core = function() {
 
             for(var index in entities) {
                 entity = entities[index];
-                if(!entity.isVisible) {
+                if(!entity.isVisible || entity.isStatic) {
                     continue;
                 }
                 // TODO: elapsed doesn't seem to be working as intended

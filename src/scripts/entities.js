@@ -16,39 +16,23 @@ function PhysicsEntity(x, y, w, h) {
 function GameEntity(x, y, w, h, ty) {
     PhysicsEntity.apply(this, arguments);
 
+    this.properties = new Properties();
     this.collidesWith = {};
 
-    var type = ty;
-
-    this.getType = function() {
-        return type;
-    };
-
-    this.setType = function(st) {
-        if(types[st]) {
-            type = types[st]
-        } else {
-            return false;
-        }
-
-        return true;
+    if(types[ty]) {
+        var type = types[ty]
+    } else {
+        return false;
     }
+
+    this.properties.set('type', type);
+    this.properties.set('layer', 1000);
 
     this.destroy = function() {
         game.entities.splice(this.id, 1);
     };
 
-    var layer = 100;
-
-    this.getLayer = function() {
-        return layer;
-    };
-
-    this.changeLayer = function(lay) {
-        layer = lay;
-    };
-
-    game.generateEntityId(this);
+    game.generateUniqueId(this, game.entities);
 }
 
 function Box(x, y, w, h) {

@@ -37,6 +37,6 @@ function Collider() {
             entities = [E2, E1];
         }
 
-        return detectors[entities[0].getType() + '2' + entities[1].getType()](E1, E2);
+        return detectors[entities[0].properties.get('type') + '2' + entities[1].properties.get('type')](E1, E2);
     }
 }

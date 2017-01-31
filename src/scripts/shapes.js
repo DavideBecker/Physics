@@ -65,11 +65,11 @@ function Shapes() {
     }
 
     this.render = function(E1) {
-        renderShape[E1.getType()](E1);
+        renderShape[E1.properties.get('type')](E1);
     }
 
     this.renderPhysicsOf = function(E1) {
-        renderPhysicsOfShape[E1.getType()](E1);
+        renderPhysicsOfShape[E1.properties.get('type') ](E1);
     }
 
     this.renderDebugOf = function(E1) {

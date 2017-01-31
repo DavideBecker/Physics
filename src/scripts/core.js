@@ -14,12 +14,15 @@ window.onblur = function() {
     isActive = false;
 };
 
-function Core() {
+var Core = function() {
     var that = this;
 
     that.showPhysics = false;
     that.entities = {};
+    that.cameras = {};
+    that.activeCamera = {};
     that.animations = [];
+    that.renderOffset = new Position();
 
     // This bit is used for the delta time to handle frame skips and slowdowns
     that.timing = {
@@ -154,6 +157,7 @@ function Core() {
             that.detectCollisions();
         }
 
+        that.activeCamera.render();
         that.render.all();
         that.timing.prev = that.timing.curr;
     };

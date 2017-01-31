@@ -2,6 +2,11 @@
 function Resolver() {
     var resolvers = {
         boxandbox: function(E1, E2) {
+            var pyTop = E2.getTop() + game.renderOffset.y;
+            var pyLeft = E2.getLeft() - game.renderOffset.x;
+            var pyRight = E2.getRight() - game.renderOffset.x;
+            var pyBottom = E2.getBottom() + game.renderOffset.y;
+
             fill(0);
 
             // Minkowski sum from
@@ -27,7 +32,7 @@ function Resolver() {
                         E1.velocity.y = 0;
                         fill(0, 0, 255);
                         if(game.showPhysics) {
-                            rect(E2.getLeft(), E2.getBottom(), E2.size.width, 5);
+                            rect(pyLeft, pyBottom, E2.size.width, 5);
                         }
                     } else {
                         // Left
@@ -35,7 +40,7 @@ function Resolver() {
                         E1.velocity.x = 0;
                         fill(255, 255, 0);
                         if(game.showPhysics) {
-                            rect(E2.getLeft() - 5, E2.getTop(), 5, E2.size.height);
+                            rect(pyLeft - 5, pyTop, 5, E2.size.height);
                         }
                     }
                 } else if(wy > -hx) {
@@ -44,7 +49,7 @@ function Resolver() {
                     E1.velocity.x = 0;
                     fill(255, 0, 0);
                     if(game.showPhysics) {
-                        rect(E2.getRight(), E2.getTop(), 5, E2.size.height);
+                        rect(pyRight, pyTop, 5, E2.size.height);
                     }
                 } else {
                     // Top
@@ -52,7 +57,7 @@ function Resolver() {
                     E1.velocity.y = 0;
                     if(game.showPhysics) {
                         fill(0, 255, 0);
-                        rect(E2.getLeft(), E2.getTop() - 5, E2.size.width, 5);
+                        rect(pyLeft, pyTop - 5, E2.size.width, 5);
                     }
                 }
             }
@@ -70,6 +75,6 @@ function Resolver() {
             entities = [E2, E1];
         }
 
-        return resolvers[entities[0].getType() + 'and' + entities[1].getType()](E1, E2);
+        return resolvers[entities[0].properties.get('type') + 'and' + entities[1].properties.get('type')](E1, E2);
     }
 }

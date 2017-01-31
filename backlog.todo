@@ -8,6 +8,10 @@ Collisions:
 Features:
     ☐ Figure out a way to add properties to entities (Like colors, sprites etc)
 
+    ☐ Add camera-like features (scrolling, unloading invisible areas etc)
+        Almost done, just missing a native feature to disable objects outside
+        the view
+
     ☐ Add more shapes
         The base is pretty flexible, so it should be easy to add new shapes
         (Circle, line, triangle etc)

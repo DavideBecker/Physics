@@ -19,13 +19,16 @@ function GameEntity(x, y, w, h, ty) {
     this.properties = new Properties();
     this.collidesWith = {};
 
-    if(types[ty]) {
-        var type = types[ty]
+    var shape = false;
+
+    if(shapes[ty]) {
+        shape = shapes[ty]
     } else {
         return false;
     }
 
-    this.properties.set('type', type);
+    this.properties.set('shape', shape);
+    this.properties.set('type', 'entity');
     this.properties.set('layer', 1000);
 
     this.destroy = function() {
@@ -36,7 +39,7 @@ function GameEntity(x, y, w, h, ty) {
 }
 
 function Box(x, y, w, h) {
-    var type = types.box;
+    var shape = shapes.box;
 
-    GameEntity.apply(this, [x, y, w, h, type]);
+    GameEntity.apply(this, [x, y, w, h, shape]);
 }

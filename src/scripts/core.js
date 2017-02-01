@@ -1,8 +1,3 @@
-require('config');
-require('shapes');
-require('collisions');
-require('resolver');
-
 var isActive = true;
 
 window.onfocus = function() {

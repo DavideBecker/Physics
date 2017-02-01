@@ -56,7 +56,8 @@ function Shapes() {
         text(
             'ID: ' + E1.id +
             '\nCollides with: ' + Object.keys(E1.collidesWith) +
-            '\nShape: ' + E1.properties.get('type') +
+            '\nShape: ' + E1.properties.get('shape') +
+            '\nType: ' + E1.properties.get('type') +
             '\nPos: x-' + E1.position.x.toFixed(2) + ' | ' + E1.position.y.toFixed(2) +
             '\nAcc: ' + E1.acceleration.x.toFixed(2) + ' | ' + E1.acceleration.y.toFixed(2) +
             '\nVel: ' + E1.velocity.x.toFixed(2) + ' | ' + E1.velocity.y.toFixed(2),
@@ -78,11 +79,11 @@ function Shapes() {
     }
 
     this.render = function(E1) {
-        renderShape[E1.properties.get('type')](E1);
+        renderShape[E1.properties.get('shape')](E1);
     }
 
     this.renderPhysicsOf = function(E1) {
-        renderPhysicsOfShape[E1.properties.get('type') ](E1);
+        renderPhysicsOfShape[E1.properties.get('shape') ](E1);
     }
 
     this.renderDebugOf = function(E1) {

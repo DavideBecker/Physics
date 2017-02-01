@@ -71,10 +71,10 @@ function Resolver() {
 
         var entities = [E1, E2];
 
-        if(E1.type > E2.type) {
+        if(E1.properties.get('shape') > E2.properties.get('shape')) {
             entities = [E2, E1];
         }
 
-        return resolvers[entities[0].properties.get('type') + 'and' + entities[1].properties.get('type')](E1, E2);
+        return resolvers[entities[0].properties.get('shape') + 'and' + entities[1].properties.get('shape')](E1, E2);
     }
 }

@@ -34,6 +34,12 @@ Features:
         the engine is missing some kind of importance hirarcy. There's no difference
         between the ground and an enemy. So there should probably be a player
         object, an entity object and a landscape object.
+        E1:
+            Maps work, although it's a bit tedious to create one, maybe find
+            a way to save and load them from bitmap files or something.
+            Also, the map is drawn, but there's no collision or tile properties
+            at the time. Maps are also a great way to implement spatial hashing
+            and have the camera only draw the parts that are within bounds.
 
 Bugs:
     ☐ Make delta time calculations more accurate

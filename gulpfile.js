@@ -25,7 +25,7 @@ var src = {
     'js': baseUrl + 'src/scripts/',
     'img': baseUrl + 'src/images/**',
 
-    'jsMain': 'scripts.js',
+    'jsMain': 'engine.js',
     'cssMain': 'styles.sass'
 }
 

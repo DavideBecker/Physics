@@ -11,5 +11,6 @@ require('resolver');
 require('core');
 require('camera');
 require('entities');
+require('maps');
 require('animations');
 // require('materials');

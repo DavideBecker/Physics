@@ -16,6 +16,7 @@ function Core() {
     that.entities = {};
     that.cameras = {};
     that.activeCamera = {};
+    that.maps = {};
     that.animations = [];
     that.renderOffset = new Position();
 
@@ -131,12 +132,20 @@ function Core() {
                 }
             }
         },
+        maps: function() {
+            for(var m1id in that.maps) {
+                var M1 = that.maps[m1id];
+
+                M1.renderMap();
+            }
+        },
         animations: function() {
             for(var index in that.animations) {
                 that.animations[index].animate();
             }
         },
         all: function() {
+            that.render.maps();
             that.render.entities();
             that.render.animations();
         }

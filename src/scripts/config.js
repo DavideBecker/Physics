@@ -24,7 +24,7 @@ var keys = {
     RIGHT: 39
 }
 
-var types = {
+var shapes = {
     box: 'box',
     //circle: "circle",
     //line: "line"

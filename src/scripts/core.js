@@ -14,7 +14,7 @@ window.onblur = function() {
     isActive = false;
 };
 
-var Core = function() {
+function Core() {
     var that = this;
 
     that.showPhysics = false;
@@ -23,6 +23,10 @@ var Core = function() {
     that.activeCamera = {};
     that.animations = [];
     that.renderOffset = new Position();
+
+    that.resolver = new Resolver();
+    that.collider = new Collider();
+    that.shapes = new Shapes();
 
     // This bit is used for the delta time to handle frame skips and slowdowns
     that.timing = {
@@ -40,9 +44,6 @@ var Core = function() {
             container[newId] = Obj;
         }
     };
-
-    that.resolver = new Resolver();
-    that.collider = new Collider();
 
     // TODO: Implement something like spatial hashing to improve performance
     // Right now this function checks every entity with every entity,
@@ -110,8 +111,6 @@ var Core = function() {
         }
     };
 
-    that.shapeRenderer = new Shapes();
-
     that.render = {
         entities: function() {
             for(var e1id in that.entities) {
@@ -120,9 +119,9 @@ var Core = function() {
                 if(!E1.isVisible) {
                     continue;
                 }
-                that.shapeRenderer.render(E1);
+                that.shapes.render(E1);
                 if(that.showPhysics) {
-                    that.shapeRenderer.renderPhysicsOf(E1);
+                    that.shapes.renderPhysicsOf(E1);
                 }
             }
 
@@ -133,7 +132,7 @@ var Core = function() {
                     if(!E1py.isVisible) {
                         continue;
                     }
-                    that.shapeRenderer.renderDebugOf(E1py);
+                    that.shapes.renderDebugOf(E1py);
                 }
             }
         },

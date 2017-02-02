@@ -41,10 +41,21 @@
 
             // By default the engine has a static camera at 0,0
             // You can use game.activeCamera to access its functionality
-            // In this example we track the controllable box and set an offset
+            // In this example we track the controllable box and set an offset,
+            // so it's not stuck at the very edge of the screen
             game.activeCamera.track(b1);
             game.activeCamera.offset.x = -50;
             game.activeCamera.offset.y = 100;
+            // The camera only moves with the x axis by default, so you don't need
+            // to change anything for side-scrollers or jump 'n' runs
+            // but you can set which axis it should track by setting
+            // game.activeCamera.scrollX or game.activeCamera.scrollY
+            // to true or false
+
+            // By default everything but the UI moves with the camera, but you
+            // can change that individually for every entity, tile, animation or
+            // ui element
+            b4.properties.set('fixed', true);
 
             // We can make an entity temporarily invisible, this prevents it
             // from interacting with anything
@@ -64,8 +75,6 @@
             // Another example below changes the velocity of an entity when keys are
             // pressed.
             b1.gravity.y = 1;
-            b2.gravity.y = 0;
-            b3.gravity.y = 0;
 
             // This shows us some graphs and stuff to visualize momentum and collisions
             // Enabling this overwrites most colors, strokes etc you set
@@ -78,18 +87,33 @@
                 // multiplier to animate to a specific value
                 // Note that this isn't a phyics entity, so it won't interact with them
                 // Although it could
-                rect(100 * step, 100 * step, 100, 100);
+                rect(200 + 100 * step, 200 + 100 * step, 100, 100);
             }, 2000);
 
             // When we're ready to run it we can set isRunning to true and it will animate
-            // anim.isRunning = true;
+            anim.isRunning = true;
             anim.isLooping = true;
+
+            // The engine supports basic tile maps for your level. First you need to
+            // create a new map
+            var introMap = new Map();
+
+            // Next, you can define tiles and add them to your created maps.
+            var floorTile = new Tile(introMap);
+
+            // Now you can define where you want to place your tile on the map
+            introMap.setTileAt(0, 0, floorTile);
 
             // This is just a variable for the example below, so you can experiment with
             // different velocities
             var bvel = 5;
 
             function draw() {
+                if(game.activeCamera.position.x >= 400) {
+                    game.activeCamera.tracking = false;
+                } else {
+                    game.activeCamera.track(b1);
+                }
 
                 // This bit allows you to control one of the rectangles by changing its
                 // velocity when W, A, S, D or space is pressed

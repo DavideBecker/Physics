@@ -218,7 +218,7 @@ module.exports = {
         ],
         "radix": "error",
         "require-await": "error",
-        "require-jsdoc": "warn",
+        "require-jsdoc": 0,
         "require-yield": 0,
         "rest-spread-spacing": "error",
         "semi": "off",

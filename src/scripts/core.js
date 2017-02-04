@@ -87,22 +87,28 @@ function Core() {
 
     that.positions = {
         update: function(elapsed) {
-            var entity;
+            var E1;
 
             var entities = that.entities;
 
-            for(var index in entities) {
-                entity = entities[index];
-                if(!entity.isVisible || entity.isStatic) {
+            for(var e1id in entities) {
+                E1 = entities[e1id];
+                if(!E1.isVisible || E1.isStatic) {
                     continue;
                 }
                 // TODO: elapsed doesn't seem to be working as intended
-                // entity.velocity.x = lerp(entity.velocity.x, 0, entity.gravity.x) * elapsed;
-                entity.velocity.x += entity.acceleration.x;
-                entity.velocity.x = lerp(entity.velocity.x, 0, config.GRAVITY_X);
-                entity.velocity.y += entity.acceleration.y + entity.gravity.y;
-                entity.position.x += entity.velocity.x * elapsed;
-                entity.position.y += entity.velocity.y * elapsed;
+                // E1.velocity.x = lerp(E1.velocity.x, 0, E1.gravity.x) * elapsed;
+                E1.velocity.x += E1.acceleration.x;
+                E1.velocity.x = lerp(E1.velocity.x, 0, config.GRAVITY_X);
+                E1.velocity.y += E1.acceleration.y + E1.gravity.y;
+                E1.position.x += E1.velocity.x * elapsed;
+                E1.position.y += E1.velocity.y * elapsed;
+                E1.pos = new Position(50, 50);
+
+                if(!E1.properties.get('fixed')) {
+                    E1.pos.x += that.renderOffset.x;
+                    E1.pos.y += that.renderOffset.y;
+                }
             }
         }
     };

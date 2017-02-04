@@ -7,7 +7,7 @@ function Shapes() {
             var ry = E1.position.y;
 
             noStroke();
-            fill(255, 0, 0);
+            fill(55, 189, 255);
             rect(rx - game.renderOffset.x, ry + game.renderOffset.y, E1.size.width, E1.size.height);
         }
     };

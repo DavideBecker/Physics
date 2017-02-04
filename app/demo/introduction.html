@@ -53,7 +53,7 @@
             // to true or false
 
             // By default everything but the UI moves with the camera, but you
-            // can change that individually for every entity, tile, animation or
+            // can change that individually for every entity, tile or
             // ui element
             b4.properties.set('fixed', true);
 
@@ -87,7 +87,8 @@
                 // multiplier to animate to a specific value
                 // Note that this isn't a phyics entity, so it won't interact with them
                 // Although it could
-                rect(200 + 100 * step, 200 + 100 * step, 100, 100);
+                noStroke();
+                rect((300 + 100 * step) - game.renderOffset.x, 200 + 100 * step, 100, 100);
             }, 2000);
 
             // When we're ready to run it we can set isRunning to true and it will animate

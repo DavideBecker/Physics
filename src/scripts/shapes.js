@@ -48,9 +48,6 @@ function Shapes() {
     };
 
     function renderDebug(E1) {
-        var pyMidX = E1.getMidX();
-        var pyMidY = E1.getMidY();
-
         noStroke();
         fill('#33A6AA');
         text(
@@ -83,7 +80,7 @@ function Shapes() {
     }
 
     this.renderPhysicsOf = function(E1) {
-        renderPhysicsOfShape[E1.properties.get('shape') ](E1);
+        renderPhysicsOfShape[E1.properties.get('shape')](E1);
     }
 
     this.renderDebugOf = function(E1) {

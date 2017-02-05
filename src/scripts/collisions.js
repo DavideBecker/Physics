@@ -37,6 +37,9 @@ function Collider() {
             entities = [E2, E1];
         }
 
-        return detectors[entities[0].properties.get('shape') + '2' + entities[1].properties.get('shape')](E1, E2);
+        var pushingE = entities[0];
+        var pushedE = entities[1];
+
+        return detectors[pushingE.properties.get('shape') + '2' + pushedE.properties.get('shape')](E1, E2);
     }
 }

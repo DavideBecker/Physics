@@ -56,6 +56,7 @@ function Core() {
                 continue;
             }
 
+            // Collision between two entities
             for(var e2id in that.entities) {
                 var E2 = that.entities[e2id];
 
@@ -87,7 +88,7 @@ function Core() {
 
     that.positions = {
         update: function(elapsed) {
-            var E1;
+            var E1 = null;
 
             var entities = that.entities;
 

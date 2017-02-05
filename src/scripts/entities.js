@@ -13,7 +13,7 @@ function PhysicsEntity(x, y, w, h) {
     this.isVisible = true;
 }
 
-function GameEntity(x, y, w, h, ty) {
+function GameEntity(x, y, w, h, sh) {
     PhysicsEntity.apply(this, arguments);
 
     this.properties = new Properties();
@@ -21,13 +21,18 @@ function GameEntity(x, y, w, h, ty) {
 
     var shape = false;
 
-    if(shapes[ty]) {
-        shape = shapes[ty]
+    if(shapes[sh]) {
+        shape = shapes[sh]
     } else {
         return false;
     }
 
     this.properties.set('shape', shape);
+}
+
+function CharacterEntity(x, y, w, h, sh) {
+    GameEntity.apply(this, [x, y, w, h, sh]);
+
     this.properties.set('type', 'entity');
     this.properties.set('layer', 1000);
 
@@ -41,5 +46,5 @@ function GameEntity(x, y, w, h, ty) {
 function Box(x, y, w, h) {
     var shape = shapes.box;
 
-    GameEntity.apply(this, [x, y, w, h, shape]);
+    CharacterEntity.apply(this, [x, y, w, h, shape]);
 }

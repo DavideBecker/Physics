@@ -1,12 +1,16 @@
 function Properties() {
     var that = this;
-    var _prop = {};
+    var _props = {};
 
     that.set = function(key, value) {
-        _prop[key] = value;
+        _props[key] = value;
     }
 
     that.get = function(key) {
-        return _prop[key];
+        if(key) {
+            return _props[key];
+        }
+
+        return _props;
     }
-};
+}

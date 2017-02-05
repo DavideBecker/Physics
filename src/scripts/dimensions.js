@@ -6,12 +6,6 @@ function Position(x, y) {
 function Size(w, h) {
     this.width = w || 0;
     this.height = h || 0;
-
-    this.updateCenter = function() {
-        this.center = new Position(this.width / 2, this.height / 2);
-    }
-
-    this.updateCenter();
 }
 
 function Velocity(x, y) {
@@ -41,6 +35,8 @@ function DimensionWrapper(pos, size, vel, acc, grav) {
     this.getBottom = function() { return this.position.y + this.size.height; };
     this.getRight = function() { return this.position.x + this.size.width; };
 
-    this.getMidX = function() { return this.position.x + this.size.center.x; };
-    this.getMidY = function() { return this.position.y + this.size.center.y; };
+    this.getCenter = function() { return new Position(this.size.width / 2, this.size.height / 2); }
+
+    this.getMidX = function() { return this.position.x + this.getCenter().x; };
+    this.getMidY = function() { return this.position.y + this.getCenter().y; };
 }

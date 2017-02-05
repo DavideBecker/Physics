@@ -17,6 +17,7 @@ function Core() {
     that.cameras = {};
     that.activeCamera = {};
     that.maps = {};
+    that.tiles = {};
     that.animations = [];
     that.renderOffset = new Position();
 
@@ -82,6 +83,43 @@ function Core() {
                 //         elasticResolve(e, ce);
                 //     }
                 // }
+            }
+
+            // Collision between an entity and the tiles of a map
+            for(var m1id in that.maps) {
+                var M1 = that.maps[m1id];
+
+                var mostTopTile = Math.floor(E1.position.y / M1.tileSize);
+                var mostLeftTile = Math.floor(E1.position.x / M1.tileSize);
+                var mostBottomTile = Math.ceil((E1.position.y + E1.size.height) / M1.tileSize);
+                var mostRightTile = Math.ceil((E1.position.x + E1.size.width) / M1.tileSize);
+
+                var totalTilesX = mostRightTile - mostLeftTile;
+                var totalTilesY = mostBottomTile - mostTopTile;
+
+                var totalTiles = totalTilesX * totalTilesY;
+
+                var tx = mostLeftTile * M1.tileSize - that.renderOffset.x;
+                var ty = mostTopTile * M1.tileSize;
+                var tw = totalTilesX * M1.tileSize;
+                var th = totalTilesY * M1.tileSize;
+
+                fill('#F7B3F1');
+                rect(tx, ty, tw, th);
+
+                M1.traverseTiles(function(x, y, T1) {
+                    T1.position.x = x * M1.tileSize;
+                    T1.position.y = y * M1.tileSize;
+                    T1.size.width = M1.tileSize;
+                    T1.size.height = M1.tileSize;
+
+                    delete E1.collidesWith[T1.id];
+                    delete T1.collidesWith[E1.id];
+
+                    if(that.collider.isColliding(E1, T1)) {
+                        that.resolver.resolve(E1, T1);
+                    }
+                })
             }
         }
     };

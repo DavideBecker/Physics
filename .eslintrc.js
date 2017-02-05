@@ -131,7 +131,10 @@ module.exports = {
         "no-mixed-operators": 0,
         "no-mixed-requires": "error",
         "no-multi-assign": "error",
-        "no-multi-spaces": "error",
+        "no-multi-spaces": [
+            "error",
+            { "exceptions": { "VariableDeclarator": true } }
+        ],
         "no-multi-str": "error",
         "no-multiple-empty-lines": "error",
         "no-native-reassign": "error",
@@ -194,7 +197,7 @@ module.exports = {
         "no-warning-comments": 0,
         "no-whitespace-before-property": "error",
         "no-with": "error",
-        "object-curly-newline": "error",
+        "object-curly-newline": 0,
         "object-curly-spacing": "error",
         "object-property-newline": "error",
         "object-shorthand": 0,
@@ -225,7 +228,7 @@ module.exports = {
         "semi-spacing": "error",
         "sort-imports": "error",
         "sort-keys": "off",
-        "sort-vars": "error",
+        "sort-vars": 0,
         "space-before-blocks": "error",
         "space-before-function-paren": [
             "error",
@@ -234,7 +237,7 @@ module.exports = {
         "space-in-parens": "error",
         "space-infix-ops": "error",
         "space-unary-ops": "error",
-        "spaced-comment": "error",
+        "spaced-comment": 0,
         "symbol-description": "error",
         "template-curly-spacing": "error",
         "unicode-bom": [

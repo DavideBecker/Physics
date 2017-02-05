@@ -28,7 +28,7 @@
             // Some examples what the engine is capable of:
 
             // We can easily create new physic entities, that interact with each other
-            var b1 = new Box(50, 100, 50, 50);
+            var b1 = new Box(150, 100, 50, 50);
             var b2 = new Box(0, 200, 500, 200);
             var b3 = new Box(500, 175, 500, 200);
             var b4 = new Box(400, 100, 50, 50);
@@ -44,8 +44,8 @@
             // In this example we track the controllable box and set an offset,
             // so it's not stuck at the very edge of the screen
             game.activeCamera.track(b1);
-            game.activeCamera.offset.x = -50;
-            game.activeCamera.offset.y = 100;
+            game.activeCamera.offset.x = -200;
+            //game.activeCamera.offset.y = 100;
             // The camera only moves with the x axis by default, so you don't need
             // to change anything for side-scrollers or jump 'n' runs
             // but you can set which axis it should track by setting
@@ -104,17 +104,23 @@
 
             // Now you can define where you want to place your tile on the map
             introMap.setTileAt(0, 0, floorTile);
+            introMap.setTileAt(1, 2, floorTile);
 
             // This is just a variable for the example below, so you can experiment with
             // different velocities
             var bvel = 5;
 
             function draw() {
+                // When the camera scrolled more than 400 pixel to the right
+                // stop the tracking
                 if(game.activeCamera.position.x >= 400) {
                     game.activeCamera.tracking = false;
+                // If it becomes less than 400 again, resume tracking the entity
                 } else {
                     game.activeCamera.track(b1);
                 }
+
+                b2.position.y = 200 + sin(new Date().getTime() / 100) * 50;
 
                 // This bit allows you to control one of the rectangles by changing its
                 // velocity when W, A, S, D or space is pressed
@@ -140,6 +146,7 @@
 
                 // This is where the engine magic happens
                 background(255);
+
                 game.tick();
             }
         </script>

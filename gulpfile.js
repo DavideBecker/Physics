@@ -1,9 +1,11 @@
 'use strict';
 
 var gulp            = require('gulp'),
+    path            = require('path'),
+    sequence        = require('run-sequence'),
+
     gutil           = require('gulp-util'),
-    fs              = require('fs'),
-    del             = require('del'),
+    clean           = require('gulp-clean'),
 
     sass            = require('gulp-sass'),
     cssnano         = require('gulp-cssnano'),
@@ -11,8 +13,7 @@ var gulp            = require('gulp'),
     autoprefixer    = require('gulp-autoprefixer'),
 
     uglify          = require('gulp-uglify'),
-    neuter          = require('gulp-neuter'),
-    jshint          = require('gulp-jshint'),
+    include         = require('gulp-include'),
 
     imagemin        = require('gulp-imagemin')
 
@@ -50,16 +51,17 @@ gulp.task('styles', function() {
 
 gulp.task('scripts', function() {
     gulp.src(src.js + src.jsMain)
-        //.pipe(jshint({
-        //    lookup: false
-        //}))
-        .pipe(neuter(src.jsMain, '/js.map', {
-            basePath: src.js,
-            template: "{%= src %}"
+        .pipe(sourcemaps.init())
+        .pipe(include({
+            includePaths: [
+                path.join(__dirname, 'src', 'scripts'),
+            ]
         }))
-        //.pipe(uglify())
-
-        .pipe(gulp.dest(dist.js));
+            .on('error', console.log)
+        .pipe(gulp.dest(dist.js))
+        .pipe(sourcemaps.write('./'))
+        .pipe(uglify())
+        .pipe(gulp.dest(dist.js + 'engine.min.js'));
 
     gulp.src(src.js + vendorFolder + '/**').pipe(gulp.dest(dist.js + vendorFolder));
 });
@@ -83,7 +85,10 @@ gulp.task('watch', function() {
 })
 
 gulp.task('clean', function() {
-    del(baseUrl + distUrl);
+    return gulp.src(baseUrl + distUrl)
+        .pipe(clean());
 })
 
-gulp.task('default', ['clean', 'styles', 'scripts', 'images'])
+gulp.task('default', function() {
+    sequence('clean', ['styles', 'scripts', 'images']);
+})

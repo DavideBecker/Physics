@@ -1,16 +1,16 @@
 'use strict';
 
-require('utils');
-require('properties');
-require('input');
-require('dimensions');
-require('config');
-require('shapes');
-require('collisions');
-require('resolver');
-require('core');
-require('camera');
-require('entities');
-require('maps');
-require('animations');
-// require('materials');
+//=require utils.js
+//=require properties.js
+//=require input.js
+//=require dimensions.js
+//=require config.js
+//=require shapes.js
+//=require collisions.js
+//=require resolver.js
+//=require core.js
+//=require camera.js
+//=require entities.js
+//=require maps.js
+//=require animations.js
+//require materials.js

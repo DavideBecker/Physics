@@ -1,4 +1,4 @@
-require('lib/bezier');
+//=require lib/bezier.js
 
 function Animation(anim, duration, easing) {
 

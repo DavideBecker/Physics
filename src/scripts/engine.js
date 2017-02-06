@@ -13,4 +13,5 @@
 //=require entities.js
 //=require maps.js
 //=require animations.js
+//=require browserEvents.js
 //require materials.js

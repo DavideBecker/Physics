@@ -78,7 +78,10 @@ module.exports = {
         ],
         "lines-around-comment": "error",
         "lines-around-directive": "error",
-        "max-depth": "error",
+        "max-depth": [
+            "error",
+            { "max": 6 }
+        ],
         "max-len": [
             "warn",
             { "code": 120, "ignoreComments": true, "ignoreTrailingComments": true }
@@ -154,7 +157,10 @@ module.exports = {
         "no-octal-escape": "error",
         "no-param-reassign": "error",
         "no-path-concat": "error",
-        "no-plusplus": "error",
+        "no-plusplus": [
+            "error",
+            { "allowForLoopAfterthoughts": true }
+        ],
         "no-process-env": "error",
         "no-process-exit": "error",
         "no-proto": "error",

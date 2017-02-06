@@ -29,7 +29,7 @@ Features:
         the main entity. However, this could result in odd behaviour if something
         collides with multiple different surfaces
 
-    ☐ Seperate entities and ground from each other
+    ✔ Seperate entities and ground from each other @done(2017-02-06 01:10)
         It seemed cool to have everything just based off of one main entity, but
         the engine is missing some kind of importance hirarcy. There's no difference
         between the ground and an enemy. So there should probably be a player
@@ -46,7 +46,14 @@ Bugs:
         Right now the movement still depends on the framerate as the delta time
         collisions are wonky
 
+    ☐ Collision detection between two frames
+        If an entity moves through another physics object between two frames
+        for example, because it's too fast, it just passes through it without
+        collision detection or resolution. Didn't find an easy solution yet.
+
 Performance:
     ☐ Don't check every entitiy with every other entity
         Right now the engine checks every frame if every entity is colliding with
         any entity, that seems pretty slow
+        E1:
+            Implemented spatial hashing for tiles

@@ -32,7 +32,7 @@ colors.setTheme({
     error: 'red'
 });
 
-var eslintErrorSeverity = ['none', 'Warning'.warn, 'FATAL'.error];
+var eslintErrorSeverity = ['none', 'Minor'.warn, 'WARNING'.error];
 
 var baseUrl = '';
 var distUrl = 'app/assets/';
@@ -71,7 +71,7 @@ gulp.task('styles', function() {
 })
 
 gulp.task('scripts:lint', function() {
-    gulp.src(src.js + '**')
+    gulp.src(src.js + '*.js')
         .pipe(eslint({
             fix: false,
             useEslintrc: true
@@ -87,9 +87,17 @@ gulp.task('scripts:lint', function() {
                         '    ' +
                         fixedLength(err.ruleId ? err.ruleId : '', 20).info +
                         fixedLength('Line ' + err.line + ':' + err.column, 16).verbose +
-                        fixedLength(eslintErrorSeverity[err.severity], 10) + ' ' + err.message);
+                        fixedLength(eslintErrorSeverity[err.severity], 10) + ' ' + err.message
+                    );
                 });
             }
+        }))
+        .pipe(eslint.results((results) => {
+            if(results.errorCount + results.warningCount === 0) {
+                console.log('');
+                console.log('    No ESLint messages, good job :)');
+            }
+            console.log('');
         }))
 })
 

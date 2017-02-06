@@ -28,16 +28,14 @@
             // Some examples what the engine is capable of:
 
             // We can easily create new physic entities, that interact with each other
-            var b1 = new Box(150, 100, 50, 50);
-            var b2 = new Box(0, 200, 500, 200);
-            var b3 = new Box(500, 175, 500, 200);
-            var b4 = new Box(400, 100, 50, 50);
+            var b1 = new Box(150, 200, 50, 50);
+            var b2 = new Box(550, 50, 300, 300);
+            var b3 = new Box(350, 175, 50, 50);
 
             // If an entity is static it won't be pushed back when colliding, but can push
             // other entities away. Two static objects don't interact with each other at all
             b2.isStatic = true;
             b3.isStatic = true;
-            b4.isStatic = true;
 
             // By default the engine has a static camera at 0,0
             // You can use game.activeCamera to access its functionality
@@ -55,7 +53,7 @@
             // By default everything but the UI moves with the camera, but you
             // can change that individually for every entity, tile or
             // ui element
-            b4.properties.set('fixed', true);
+            b3.properties.set('fixed', true);
 
             // We can make an entity temporarily invisible, this prevents it
             // from interacting with anything
@@ -103,8 +101,10 @@
             var floorTile = new Tile(introMap);
 
             // Now you can define where you want to place your tile on the map
-            introMap.setTileAt(0, 0, floorTile);
-            introMap.setTileAt(1, 2, floorTile);
+            for(var i = 0; i <= 10; i++) {
+                introMap.setTileAt(i, 6, floorTile);
+                introMap.setTileAt(i, 7, floorTile);
+            }
 
             // This is just a variable for the example below, so you can experiment with
             // different velocities

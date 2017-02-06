@@ -1,13 +1,4 @@
-var isActive = true;
-
-window.onfocus = function() {
-    isActive = true;
-    input.devices.keyboard._pressed = {};
-};
-
-window.onblur = function() {
-    isActive = false;
-};
+var isActive = false;
 
 function Core() {
     var that = this;
@@ -89,10 +80,10 @@ function Core() {
             for(var m1id in that.maps) {
                 var M1 = that.maps[m1id];
 
-                var mostTopTile = Math.floor(E1.position.y / M1.tileSize);
-                var mostLeftTile = Math.floor(E1.position.x / M1.tileSize);
-                var mostBottomTile = Math.ceil((E1.position.y + E1.size.height) / M1.tileSize);
-                var mostRightTile = Math.ceil((E1.position.x + E1.size.width) / M1.tileSize);
+                var mostTopTile = Math.floor(E1.position.y / M1.tileSize) - 1;
+                var mostLeftTile = Math.floor(E1.position.x / M1.tileSize) - 1;
+                var mostBottomTile = Math.ceil((E1.position.y + E1.size.height) / M1.tileSize) + 1;
+                var mostRightTile = Math.ceil((E1.position.x + E1.size.width) / M1.tileSize) + 1;
 
                 var totalTilesX = mostRightTile - mostLeftTile;
                 var totalTilesY = mostBottomTile - mostTopTile;
@@ -104,22 +95,26 @@ function Core() {
                 var tw = totalTilesX * M1.tileSize;
                 var th = totalTilesY * M1.tileSize;
 
-                fill('#F7B3F1');
-                rect(tx, ty, tw, th);
+                if(that.showPhysics) {
+                    fill('#F7B3F1');
+                    rect(tx, ty, tw, th);
+                }
 
-                M1.traverseTiles(function(x, y, T1) {
-                    T1.position.x = x * M1.tileSize;
-                    T1.position.y = y * M1.tileSize;
-                    T1.size.width = M1.tileSize;
-                    T1.size.height = M1.tileSize;
+                for(var pos = 0; pos < totalTiles; pos++) {
+                    var currentTileX = mostLeftTile + Math.floor(pos / totalTilesY);
+                    var currentTileY = mostTopTile + pos % totalTilesX;
 
-                    delete E1.collidesWith[T1.id];
-                    delete T1.collidesWith[E1.id];
+                    var T1 = M1.getTileAt(currentTileX, currentTileY);
 
-                    if(that.collider.isColliding(E1, T1)) {
-                        that.resolver.resolve(E1, T1);
+                    if(T1) {
+                        delete E1.collidesWith[T1.id];
+                        delete T1.collidesWith[E1.id];
+
+                        if(that.collider.isColliding(E1, T1)) {
+                            that.resolver.resolve(E1, T1);
+                        }
                     }
-                })
+                }
             }
         }
     };

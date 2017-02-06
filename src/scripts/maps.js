@@ -5,8 +5,39 @@ function Map() {
     that.tiles = [];
     that.tileSize = 50;
 
-    that.getTileAt = function(x, y) {
-        return mapMatrix[y][x];
+    that.getTileAt = function(x, y, full) {
+        var fullTileObject = full || false;
+
+        if(that.tileAt(x, y)) {
+            var T1 = that.mapMatrix[y][x];
+
+            if(!fullTileObject) {
+                var instance = T1.entityInstances[that.id];
+
+                instance.position.x = x * that.tileSize;
+                instance.position.y = y * that.tileSize;
+                instance.size.width = that.tileSize;
+                instance.size.height = that.tileSize;
+
+                return instance;
+            }
+
+            return T1;
+        }
+
+        return false;
+    }
+
+    that.tileAt = function(x, y) {
+        if(!that.mapMatrix[y]) {
+            return false
+        }
+
+        if(!that.mapMatrix[y][x]) {
+            return false;
+        }
+
+        return true;
     }
 
     that.setTileAt = function(x, y, tile) {
